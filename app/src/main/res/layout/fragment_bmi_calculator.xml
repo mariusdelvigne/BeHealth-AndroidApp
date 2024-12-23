@@ -109,15 +109,43 @@
                 android:ems="10"
                 android:inputType="numberSigned" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_fragmentBmiCalculator_calculateBmi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calcul" />
+        </TableRow>
+
+
     </TableLayout>
 
-    <Button
-        android:id="@+id/btn_fragmentBmiCalculator_calculateBmi"
+    <TextView
+        android:id="@+id/tv_fragmentBmiCalculator_bmiResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Calcul"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/tl_fragmentBmiCalculator"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tl_fragmentBmiCalculator" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="28dp" />
+
+    <TextView
+        android:id="@+id/tv_fragmentBmiCalculator_bmiInterpretation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentBmiCalculator_bmiResult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
