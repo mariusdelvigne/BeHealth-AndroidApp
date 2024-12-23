@@ -4,7 +4,7 @@ data class CaloriesBurnedCalculatorCommand(
     val sport: String,
     val gender: String,
     val age: Int,
-    val durationsInMinute: Int,
+    val durationInMinute: Int,
     val heightInCm: Int,
     val weightInKg: Double,
 )

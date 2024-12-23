@@ -96,14 +96,14 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time : " />
+                android:text="Time (min) : " />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="time" />
+                android:inputType="numberSigned" />
 
         </TableRow>
 
@@ -117,7 +117,7 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height : " />
+                android:text="Height (cm) : " />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_height"
@@ -137,7 +137,7 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weight : " />
+                android:text="Weight (kg) : " />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_weight"

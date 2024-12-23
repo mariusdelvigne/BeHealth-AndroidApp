@@ -25,7 +25,7 @@ class BmiCalculatorFragment : Fragment() {
     ): View? {
         binding = FragmentBmiCalculatorBinding.inflate(layoutInflater, container, false)
 
-        viewModel =ViewModelProvider(this).get(CalculateBmiManagerViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CalculateBmiManagerViewModel::class.java)
 
         setUpSpinner()
         setOnClickListeners()
