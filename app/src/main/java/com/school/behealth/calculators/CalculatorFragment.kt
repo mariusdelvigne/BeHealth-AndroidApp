@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.school.behealth.R
 import com.school.behealth.calculators.bmiCalculator.BmiCalculatorFragment
+import com.school.behealth.calculators.caloriesBurnedCalculator.CaloriesBurnedCalculatorFragment
 import com.school.behealth.databinding.FragmentCalculatorBinding
 
 class CalculatorFragment : Fragment() {
@@ -24,7 +25,10 @@ class CalculatorFragment : Fragment() {
 
     private fun setOnClickListeners() {
         binding.btnFragmentCalculatorGoToBmiCalculator.setOnClickListener {
-            replaceFragment( BmiCalculatorFragment())
+            replaceFragment(BmiCalculatorFragment())
+        }
+        binding.btnFragmentCalculatorGoToCaloriesBurnedCalculator.setOnClickListener {
+            replaceFragment(CaloriesBurnedCalculatorFragment())
         }
     }
 

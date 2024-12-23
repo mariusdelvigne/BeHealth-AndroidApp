@@ -5,4 +5,28 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
+    <string-array name="sport_array">
+        <item>Running</item>
+        <item>Football</item>
+        <item>Basketball</item>
+        <item>Swimming</item>
+        <item>Road Cycling</item>
+        <item>Yoga</item>
+        <item>Boxing</item>
+        <item>American football</item>
+        <item>Tennis</item>
+        <item>Hiking</item>
+        <item>Rowing</item>
+        <item>Weight lifting</item>
+        <item>Trampoline</item>
+        <item>Skiing</item>
+        <item>Surfing</item>
+        <item>Dancing</item>
+        <item>Walking</item>
+        <item>Road Climbing</item>
+        <item>Martial Art</item>
+        <item>Stretching</item>
+        <item>Bowling</item>
+    </string-array>
+
 </resources>

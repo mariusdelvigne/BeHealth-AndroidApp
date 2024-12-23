@@ -2,24 +2,24 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".calculators.bmiCalculator.BmiCalculatorFragment">
+    tools:context=".calculators.caloriesBurnedCalculator.CaloriesBurnedCalculatorFragment">
 
     <TextView
-        android:id="@+id/tv_fragmentBmiCalculator_title"
+        android:id="@+id/tv_fragmentCaloriesBurned_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Calcul your BMI"
+        android:text="Calcul the calories burned"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TableLayout
-        android:id="@+id/tl_fragmentBmiCalculator"
+        android:id="@+id/tl_fragmentCaloriesBurnedCalculator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentBmiCalculator_title">
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCaloriesBurned_title">
 
         <TableRow
             android:layout_width="match_parent"
@@ -37,16 +37,33 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_fragmentBmiCalculator_gender"
+                android:id="@+id/tv_fragmentCaloriesBurnedCalculator_sport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sport : " />
+
+            <Spinner
+                android:id="@+id/sp_fragmentCaloriesBurnedCalculator_sportSelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_fragmentCaloriesBurnedCalculator_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gender : " />
 
             <Spinner
-                android:id="@+id/sp_fragmentBmiCalculator_genderSelect"
+                android:id="@+id/sp_fragmentCaloriesBurnedCalculator_genderSelected"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
         </TableRow>
 
         <TableRow
@@ -56,13 +73,13 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_fragmentBmiCalculator_age"
+                android:id="@+id/tv_fragmentCaloriesBurnedCalculator_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Age : " />
 
             <EditText
-                android:id="@+id/et_fragmentBmiCalculator_age"
+                android:id="@+id/et_fragmentCaloriesBurnedCalculator_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -76,59 +93,77 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_fragmentBmiCalculator_weight"
+                android:id="@+id/tv_fragmentCaloriesBurnedCalculator_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weight (kg) : " />
+                android:text="Time : " />
 
             <EditText
-                android:id="@+id/et_fragmentBmiCalculator_weight"
+                android:id="@+id/et_fragmentCaloriesBurnedCalculator_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="time" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_fragmentCaloriesBurnedCalculator_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Height : " />
+
+            <EditText
+                android:id="@+id/et_fragmentCaloriesBurnedCalculator_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberSigned" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_fragmentCaloriesBurnedCalculator_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weight : " />
+
+            <EditText
+                android:id="@+id/et_fragmentCaloriesBurnedCalculator_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="numberDecimal" />
-
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/tv_fragmentBmiCalculator_height"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Height (cm) : " />
-
-            <EditText
-                android:id="@+id/et_fragmentBmiCalculator_height"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberSigned" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:gravity="center">
+            android:gravity="center" >
 
             <Button
-                android:id="@+id/btn_fragmentBmiCalculator_calculateBmi"
+                android:id="@+id/btn_fragmentCaloriesBurnedCalculator_calculateCaloriesBurned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Calcul" />
         </TableRow>
-
-
     </TableLayout>
 
     <TextView
-        android:id="@+id/tv_fragmentBmiCalculator_bmiResult"
-        app:layout_constraintTop_toBottomOf="@+id/tl_fragmentBmiCalculator"
+        android:id="@+id/tv_fragmentCaloriesBurnedCalculator_resultSportTime"
+        app:layout_constraintTop_toBottomOf="@+id/tl_fragmentCaloriesBurnedCalculator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -138,14 +173,13 @@
         android:layout_marginTop="28dp" />
 
     <TextView
-        android:id="@+id/tv_fragmentBmiCalculator_bmiInterpretation"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentBmiCalculator_bmiResult"
+        android:id="@+id/tv_fragmentCaloriesBurnedCalculator_resultCalories"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCaloriesBurnedCalculator_resultSportTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
-
+        android:layout_marginTop="24dp"  />
 </androidx.constraintlayout.widget.ConstraintLayout>
