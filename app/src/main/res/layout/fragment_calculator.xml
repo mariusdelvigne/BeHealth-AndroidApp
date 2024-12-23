@@ -2,19 +2,73 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout2"
+    android:id="@+id/fragmentCalculatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".calculators.CalculatorFragment">
 
     <TextView
         android:id="@+id/tv_fragmentCalculators_title"
+        android:text="Calculators"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Calculators"
+        android:layout_marginBottom="1dp"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCalculators_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.63">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_fragmentCalculator_goToBmiCalculator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calcul BMI" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_fragmentCalculator_goToCaloriesBurnedCalculator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calcul Calories Burned" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_fragmentCalculator_goToCaloriesEatenCalculator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calcul Calories Eat" />
+        </TableRow>
+
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.school.behealth.R
+import com.school.behealth.calculators.bmiCalculator.BmiCalculatorFragment
 import com.school.behealth.databinding.FragmentCalculatorBinding
 
 class CalculatorFragment : Fragment() {
@@ -15,7 +16,24 @@ class CalculatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCalculatorBinding.inflate(layoutInflater, container, false)
+
+        setOnClickListeners()
+
         return binding.root
+    }
+
+    private fun setOnClickListeners() {
+        binding.btnFragmentCalculatorGoToBmiCalculator.setOnClickListener {
+            replaceFragment( BmiCalculatorFragment())
+        }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+        fragmentTransaction
+            .replace(R.id.frameLayout_mainActivity, fragment, "calculatorFragment")
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {

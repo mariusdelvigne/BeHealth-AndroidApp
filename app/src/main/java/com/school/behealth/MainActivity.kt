@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(HomeFragment())
 
+        setOnItemSelected()
+    }
+
+    private fun setOnItemSelected() {
         binding.bottomNavBarMainActivity.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.home_menu -> replaceFragment(HomeFragment())
@@ -33,6 +37,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment){
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout_mainActivity, fragment).commit()
+        fragmentTransaction.replace(R.id.frameLayout_mainActivity, fragment, "mainFragment").commit()
     }
 }
