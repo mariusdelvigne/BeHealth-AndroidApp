@@ -1,5 +1,6 @@
 package com.school.behealth.calculators.caloriesBurnedCalculator
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ class CaloriesBurnedCalculatorFragment : Fragment() {
     ): View {
         binding = FragmentCaloriesBurnedCalculatorBinding.inflate(layoutInflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(CalculateCaloriesBurnedManagerViewModel::class.java)
+        viewModel = ViewModelProvider(this)[CalculateCaloriesBurnedManagerViewModel::class.java]
 
         setUpSpinners()
         setOnClickListener()
@@ -29,6 +30,7 @@ class CaloriesBurnedCalculatorFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setOnClickListener() {
         binding.btnFragmentCaloriesBurnedCalculatorCalculateCaloriesBurned.setOnClickListener {
             val sport = binding.spFragmentCaloriesBurnedCalculatorSportSelected.selectedItem.toString()
@@ -41,10 +43,12 @@ class CaloriesBurnedCalculatorFragment : Fragment() {
             val command = CaloriesBurnedCalculatorCommand(sport, gender, age, duration, height, weight)
             viewModel.calculateCaloriesBurned(command)
 
-            viewModel.mutableLiveCaloriesBurnedData.observe(viewLifecycleOwner, { response ->
-                binding.tvFragmentCaloriesBurnedCalculatorResultSportTime.text = "Sport : ${response.nameSport}, during : ${response.durationMinutes} mins"
-                binding.tvFragmentCaloriesBurnedCalculatorResultCalories.text = "Result : ${response.calories} kcal burned"
-            })
+            viewModel.mutableLiveCaloriesBurnedData.observe(viewLifecycleOwner) { response ->
+                binding.tvFragmentCaloriesBurnedCalculatorResultSportTime.text =
+                    "Sport : ${response.nameSport}, during : ${response.durationMinutes} mins"
+                binding.tvFragmentCaloriesBurnedCalculatorResultCalories.text =
+                    "Result : ${response.calories} kcal burned"
+            }
         }
     }
 

@@ -1,18 +1,16 @@
 package com.school.behealth.calculators.bmiCalculator
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.lifecycle.ViewModel
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.school.behealth.R
 import com.school.behealth.calculators.bmiCalculator.dtos.BmiCalculatorCommand
-import com.school.behealth.calculators.bmiCalculator.dtos.BmiCalculatorResponse
 import com.school.behealth.databinding.FragmentBmiCalculatorBinding
 
 class BmiCalculatorFragment : Fragment() {
@@ -22,10 +20,10 @@ class BmiCalculatorFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBmiCalculatorBinding.inflate(layoutInflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(CalculateBmiManagerViewModel::class.java)
+        viewModel = ViewModelProvider(this)[CalculateBmiManagerViewModel::class.java]
 
         setUpSpinner()
         setOnClickListeners()
@@ -33,6 +31,7 @@ class BmiCalculatorFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setOnClickListeners() {
         binding.btnFragmentBmiCalculatorCalculateBmi.setOnClickListener {
             val gender = binding.spFragmentBmiCalculatorGenderSelect.selectedItem.toString()
@@ -48,10 +47,10 @@ class BmiCalculatorFragment : Fragment() {
             val command = BmiCalculatorCommand(gender, age, height, weight)
             viewModel.calculateBmi(command)
 
-            viewModel.mutableCalculateBmiLiveData.observe(viewLifecycleOwner, { response ->
+            viewModel.mutableCalculateBmiLiveData.observe(viewLifecycleOwner) { response ->
                 binding.tvFragmentBmiCalculatorBmiResult.text = "BMI : ${response.bmi}"
                 binding.tvFragmentBmiCalculatorBmiInterpretation.text = response.bmiInterpretation
-            })
+            }
         }
     }
 

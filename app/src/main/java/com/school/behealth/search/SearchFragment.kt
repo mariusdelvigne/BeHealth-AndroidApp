@@ -1,11 +1,10 @@
 package com.school.behealth.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.school.behealth.R
+import androidx.fragment.app.Fragment
 import com.school.behealth.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
@@ -13,7 +12,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
 
         return binding.root
