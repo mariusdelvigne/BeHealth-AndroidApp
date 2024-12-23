@@ -7,6 +7,11 @@
         android:icon="@drawable/baseline_home_24"/>
 
     <item
+        android:id="@+id/calculators_menu"
+        android:title="Calculators"
+        android:icon="@drawable/baseline_calculate_24"/>
+
+    <item
         android:id="@+id/profile_menu"
         android:title="Profile"
         android:icon="@drawable/baseline_person_24"/>
