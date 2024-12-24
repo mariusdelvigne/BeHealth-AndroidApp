@@ -34,8 +34,7 @@ class PlanManagerFragment : Fragment() {
             .findFragmentById(R.id.fragmentContainerView_planFragmentManager_planListFragment) as PlanListFragment
 
         viewModel.mutablePlanLiveData.observe(viewLifecycleOwner) {
-            Log.i("Plans", it.toString())
-
+            Log.i("Observed", "" + it)
             planListFragment.initUIWithTodoList(it)
         }
 
@@ -59,6 +58,7 @@ class PlanManagerFragment : Fragment() {
                 privacy = "public",
             )
 
+            Log.i("FilterQuery", "" + query)
             viewModel.getPlansFiltered(query)
         }
     }

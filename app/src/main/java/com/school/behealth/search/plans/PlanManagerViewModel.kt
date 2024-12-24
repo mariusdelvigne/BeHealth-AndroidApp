@@ -1,5 +1,6 @@
 package com.school.behealth.search.plans
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,6 +18,7 @@ class PlanManagerViewModel : ViewModel() {
         viewModelScope.launch {
 
             val response = planRepository.getPlansFiltered(query.name, query.category, query.privacy)
+            Log.i("response get plans", "" + response)
             mutablePlanLiveData.postValue(response.plans)
         }
     }

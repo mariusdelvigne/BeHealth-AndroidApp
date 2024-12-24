@@ -29,7 +29,6 @@ class PlanRecyclerViewAdapter(
         holder.tvCategory.text = plan.category
         holder.tvDurationInDays.text = plan.durationInDays.toString()
         holder.tvName.text = plan.name
-        Log.i("plans", plan.toString())
     }
 
     override fun getItemCount(): Int = values.size

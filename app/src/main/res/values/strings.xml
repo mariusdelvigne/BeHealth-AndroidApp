@@ -29,9 +29,9 @@
         <item>Bowling</item>
     </string-array>
     <string-array name="category_array">
-        <item>Sport</item>
-        <item>Food</item>
-        <item>Sleep</item>
+        <item>sport</item>
+        <item>food</item>
+        <item>sleep</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

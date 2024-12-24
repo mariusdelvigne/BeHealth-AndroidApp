@@ -30,6 +30,7 @@ class PlanListFragment : Fragment() {
     }
 
     fun initUIWithTodoList(plans: List<Plan>) {
+        this.plans.clear()
         plans.forEach { this.plans.add(it) }
         planRecyclerViewAdapter.notifyDataSetChanged()
     }
