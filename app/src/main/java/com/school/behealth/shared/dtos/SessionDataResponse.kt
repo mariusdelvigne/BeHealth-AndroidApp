@@ -1,7 +1,7 @@
 package com.school.behealth.shared.dtos
 
 import com.google.gson.annotations.SerializedName
-import java.sql.Date
+import java.util.Date
 
 data class SessionDataResponse(
     val id: Int,

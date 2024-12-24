@@ -12,14 +12,17 @@ import kotlinx.coroutines.launch
 
 class SignInManagerViewModel : ViewModel() {
     val mutableLiveSessionData: MutableLiveData<SessionDataResponse> = MutableLiveData()
+    val mutableLiveErrorMessage: MutableLiveData<String> = MutableLiveData()
     private val sessionRepository = RetrofitFactory.instance.create(ISessionRepository::class.java)
 
     fun createSession(command: SessionAuthenticateCommand){
         viewModelScope.launch {
             try {
                 val response = sessionRepository.connectionSession(command)
+                Log.i("ResponseViewModel", response.toString())
                 mutableLiveSessionData.postValue(response)
             } catch (e: Exception){
+                mutableLiveErrorMessage.postValue(e.toString())
                 Log.e("SessionAuth", "Error authentification user", e)
             }
         }

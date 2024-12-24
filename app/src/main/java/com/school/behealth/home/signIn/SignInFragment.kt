@@ -1,15 +1,13 @@
 package com.school.behealth.home.signIn
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.school.behealth.R
 import com.school.behealth.databinding.FragmentSignInBinding
 import com.school.behealth.shared.dtos.SessionAuthenticateCommand
 
@@ -26,6 +24,7 @@ class SignInFragment : Fragment() {
         viewModel = ViewModelProvider(this)[SignInManagerViewModel::class.java]
 
         setOnClickListener()
+        observeViewModel()
 
         return binding.root
     }
@@ -37,11 +36,15 @@ class SignInFragment : Fragment() {
 
             val command = SessionAuthenticateCommand(username, password)
             viewModel.createSession(command)
+        }
+    }
+    private fun observeViewModel() {
+        viewModel.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
+            Toast.makeText(requireContext(), "${response.username} + ${response.tokenExpirationDateTime}", Toast.LENGTH_LONG).show()
+        }
 
-            viewModel.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
-//                Log.i()
-                Toast.makeText(requireContext(), "${response.username} + ${response.tokenExpirationDateTime}", Toast.LENGTH_LONG).show()
-            }
+        viewModel.mutableLiveErrorMessage.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
         }
     }
 
