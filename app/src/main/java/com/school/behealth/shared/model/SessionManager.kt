@@ -47,7 +47,6 @@ class SessionManager(context: Context): ViewModel() {
         }
     }
 
-
     fun createSession(command: SessionAuthenticateCommand) {
         viewModelScope.launch {
             try {
