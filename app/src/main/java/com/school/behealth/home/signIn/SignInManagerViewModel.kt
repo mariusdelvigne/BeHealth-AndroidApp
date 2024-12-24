@@ -1,7 +1,6 @@
 package com.school.behealth.home.signIn
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,24 +17,37 @@ class SignInManagerViewModel : ViewModel() {
 
     val mutableLiveSessionData: MutableLiveData<SessionDataResponse> = MutableLiveData()
     val mutableLiveErrorMessage: MutableLiveData<String> = MutableLiveData()
+    val isConnectedLiveData: MutableLiveData<Boolean> = MutableLiveData()
+
     private val sessionRepository = RetrofitFactory.instance.create(ISessionRepository::class.java)
 
     fun setContext(context: Context) {
         this.context = context
         session = SessionManager(context)
     }
-    fun createSession(command: SessionAuthenticateCommand){
+
+    fun verifyConnection() {
+        viewModelScope.launch {
+            try {
+                sessionRepository.isConnected()
+//                if (response.username != null) {
+                    isConnectedLiveData.postValue(true)
+//                }
+            } catch (e: Exception) {
+                mutableLiveErrorMessage.postValue("Authentication Error : ${e.message}")
+                isConnectedLiveData.postValue(false)
+            }
+        }
+    }
+
+    fun createSession(command: SessionAuthenticateCommand) {
         viewModelScope.launch {
             try {
                 val response = sessionRepository.connectionSession(command)
-                Log.i("ResponseViewModel", response.toString())
                 mutableLiveSessionData.postValue(response)
-
                 session.registerPref(response, command.password)
-                session.printToken()
-            } catch (e: Exception){
-                mutableLiveErrorMessage.postValue(e.toString())
-                Log.e("SessionAuth", "Error authentification user", e)
+            } catch (e: Exception) {
+                mutableLiveErrorMessage.postValue("Authentication Error : ${e.message}")
             }
         }
     }

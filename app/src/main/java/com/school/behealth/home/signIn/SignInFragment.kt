@@ -38,7 +38,11 @@ class SignInFragment : Fragment() {
             val command = SessionAuthenticateCommand(username, password)
             viewModel.createSession(command)
         }
+        binding.btnFragmentHomeIsConnected.setOnClickListener {
+            viewModel.verifyConnection()
+        }
     }
+
     private fun observeViewModel() {
         viewModel.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
             Toast.makeText(requireContext(), "${response.username} + ${response.tokenExpirationDateTime}", Toast.LENGTH_LONG).show()
@@ -46,6 +50,15 @@ class SignInFragment : Fragment() {
 
         viewModel.mutableLiveErrorMessage.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
+        }
+
+        viewModel.isConnectedLiveData.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected) {
+                Toast.makeText(requireContext(), "Connected", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireContext(), "Not connected", Toast.LENGTH_LONG).show()
+            }
+            Log.i("SessionManager", isConnected.toString())
         }
     }
 

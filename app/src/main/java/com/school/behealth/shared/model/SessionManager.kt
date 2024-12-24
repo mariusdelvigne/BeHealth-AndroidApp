@@ -11,7 +11,6 @@ class SessionManager(context: Context) {
     private val username = sharedPref.getString("username", null)
     private val password = sharedPref.getString("password", null)
     private val role = sharedPref.getString("role", null)
-    private val expirationDateTime = sharedPref.getString("expirationDateTime", null)
     private val userId = sharedPref.getString("userId", null)
 
     fun registerPref(data: SessionDataResponse, password: String){
@@ -20,16 +19,14 @@ class SessionManager(context: Context) {
         editor.putString("username", data.username)
         editor.putString("password", password)
         editor.putString("role", data.role)
-        editor.putString("expirationDateTime", data.tokenExpirationDateTime.toString())
         editor.apply()
     }
 
     fun printToken() {
-        if (username != null && password !=null && role !=null && expirationDateTime !=null && userId !=null) {
+        if (username != null && password !=null && role !=null && userId !=null) {
             Log.i("JWT", username)
             Log.i("JWT", password)
             Log.i("JWT", role)
-            Log.i("JWT", expirationDateTime)
             Log.i("JWT", userId)
         } else {
             Log.i("JWT", "Token is null")
