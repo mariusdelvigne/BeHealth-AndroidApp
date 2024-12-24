@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.fragment.app.Fragment
+import com.school.behealth.R
 import com.school.behealth.databinding.FragmentHomeBinding
+import com.school.behealth.home.signIn.SignInFragment
 import com.school.behealth.shared.model.SessionManager
 
 class HomeFragment : Fragment() {
@@ -23,7 +25,17 @@ class HomeFragment : Fragment() {
         session = SessionManager(requireContext())
         session.printToken()
 
+        replaceFragment(SignInFragment())
+
         return binding.root
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+        fragmentTransaction
+            .replace(R.id.frameLayout_mainActivity, fragment, "calculatorFragment")
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
