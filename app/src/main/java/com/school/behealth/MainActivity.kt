@@ -7,6 +7,7 @@ import com.school.behealth.calculators.CalculatorFragment
 import com.school.behealth.databinding.ActivityMainBinding
 import com.school.behealth.home.HomeFragment
 import com.school.behealth.profile.ProfileFragment
+import com.school.behealth.search.SearchFragment
 import com.school.behealth.settings.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.calculators_menu -> replaceFragment(CalculatorFragment())
                 R.id.profile_menu -> replaceFragment(ProfileFragment())
                 R.id.setting_menu -> replaceFragment(SettingsFragment())
+                R.id.search_menu -> replaceFragment(SearchFragment())
             }
             true
         }
