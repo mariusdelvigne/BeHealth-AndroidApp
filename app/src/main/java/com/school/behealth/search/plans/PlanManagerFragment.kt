@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import com.school.behealth.R
-import com.school.behealth.databinding.FragmentPlanItemBinding
 import com.school.behealth.databinding.FragmentPlanManagerBinding
 import com.school.behealth.search.plans.dtos.PlanFilterQuery
 

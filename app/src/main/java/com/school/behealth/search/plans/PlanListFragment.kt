@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.school.behealth.R
-import com.school.behealth.search.plans.dtos.PlanFilterResponse
+import com.school.behealth.search.plans.dtos.Plan
 
 class PlanListFragment : Fragment() {
-    private val plans: ArrayList<PlanFilterResponse> = arrayListOf()
+    private val plans: ArrayList<Plan> = arrayListOf()
     private val planRecyclerViewAdapter = PlanRecyclerViewAdapter(plans)
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class PlanListFragment : Fragment() {
         return view
     }
 
-    fun initUIWithTodoList(plans: List<PlanFilterResponse>) {
+    fun initUIWithTodoList(plans: List<Plan>) {
         plans.forEach { this.plans.add(it) }
         planRecyclerViewAdapter.notifyDataSetChanged()
     }

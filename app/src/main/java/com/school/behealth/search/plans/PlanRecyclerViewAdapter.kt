@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import com.school.behealth.databinding.FragmentPlanItemBinding
-
-import com.school.behealth.search.plans.dtos.PlanFilterResponse
+import com.school.behealth.search.plans.dtos.Plan
 
 class PlanRecyclerViewAdapter(
-    private val values: List<PlanFilterResponse>
+    private val values: List<Plan>
 ) : RecyclerView.Adapter<PlanRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

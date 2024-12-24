@@ -10,5 +10,5 @@ suspend fun getPlansFiltered(@Query("name") name: String? = null,
                              @Query("category") category: String? = null,
                              @Query("privacy") privacy: String? = null,
                              @Query("pageNumber") pageNumber: Int = 0,
-                             @Query("pageSize") pageSize: Int = 10): List<PlanFilterResponse>
+                             @Query("pageSize") pageSize: Int = 10): PlanFilterResponse
 }
