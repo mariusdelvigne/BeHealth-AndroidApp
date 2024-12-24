@@ -22,6 +22,7 @@ class SignInFragment : Fragment() {
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
 
         viewModel = ViewModelProvider(this)[SignInManagerViewModel::class.java]
+        viewModel.setContext(requireContext())
 
         setOnClickListener()
         observeViewModel()
