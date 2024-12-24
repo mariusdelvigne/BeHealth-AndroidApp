@@ -47,29 +47,34 @@ class PlanManagerFragment : Fragment() {
         setUpSpinner()
     }
 
+    private fun getFilterQuery(): PlanFilterQuery {
+        val name = requireView().findViewById<EditText>(R.id.et_planFragmentManager_titlePlan).text.toString()
+        val category = requireView().findViewById<Spinner>(R.id.sp_planFragmentManager_categoryPlan).selectedItem.toString()
+
+        return PlanFilterQuery(
+            name = name,
+            category = category,
+            privacy = "public"
+        )
+    }
+
     private fun setUpListeners() {
         binding.btnPlanFragmentManagerFilter.setOnClickListener {
-            val name = requireView().findViewById<EditText>(R.id.et_planFragmentManager_titlePlan).text.toString()
-            val category = requireView().findViewById<Spinner>(R.id.sp_planFragmentManager_categoryPlan).selectedItem.toString()
-
-            val query = PlanFilterQuery(
-                name = name,
-                category = category,
-                privacy = "public",
-            )
-
-            Log.i("FilterQuery", "" + query)
+            val query = getFilterQuery()
             viewModel.getPlansFiltered(query)
         }
 
         binding.btnPlanFragmentManagerNext.setOnClickListener {
-            viewModel.nextPage()
+            val query = getFilterQuery()
+            viewModel.nextPage(query)
         }
 
         binding.btnPlanFragmentManagerPrevious.setOnClickListener {
-            viewModel.previousPage()
+            val query = getFilterQuery()
+            viewModel.previousPage(query)
         }
     }
+
 
     private fun setUpSpinner() {
         ArrayAdapter.createFromResource(
