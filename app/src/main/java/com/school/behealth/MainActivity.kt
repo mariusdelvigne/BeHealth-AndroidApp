@@ -1,6 +1,7 @@
 package com.school.behealth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.school.behealth.calculators.CalculatorFragment
@@ -14,6 +15,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPref = getSharedPreferences("JWT", MODE_PRIVATE)
+
+        //TODO recup le token via session manager et faire la verif lors du main activity (si = null on fait un home different)
+        val editor = sharedPref.edit()
+        editor.putString("value", "kjdjkshdkshdkhskdjshkjdhksdhslkdjslkjdlsjd")
+        editor.apply()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
