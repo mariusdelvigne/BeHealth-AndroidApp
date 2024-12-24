@@ -2,25 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout6"
+    android:id="@+id/frameLayout7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".search.plans.PlanManagerFragment">
 
 
     <TextView
-        android:id="@+id/tv_planFragmentManager_title"
+        android:id="@+id/tv_programFragmentManager_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:text="Search plans"
+        android:text="Search programs"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:id="@+id/tl_planFragmentManager"
+        android:id="@+id/tl_programFragmentManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_planFragmentManager_title">
+        app:layout_constraintTop_toBottomOf="@+id/tv_programFragmentManager_title">
 
         <TableRow
             android:layout_width="match_parent"
@@ -38,13 +38,13 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_planFragmentManager_titlePlan"
+                android:id="@+id/tv_programFragmentManager_titleProgram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title : " />
 
             <EditText
-                android:id="@+id/et_planFragmentManager_titlePlan"
+                android:id="@+id/et_programFragmentManager_titleProgram"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
@@ -60,26 +60,8 @@
             android:layout_marginTop="12dp"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/tv_planFragmentManager_categoryPlan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Category : " />
-
-            <Spinner
-                android:id="@+id/sp_planFragmentManager_categoryPlan"
-                android:layout_width="match_parent"
-                android:layout_height="48dp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:gravity="center">
-
             <Button
-                android:id="@+id/btn_planFragmentManager_filter"
+                android:id="@+id/btn_programFragmentManager_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Filter" />
@@ -92,13 +74,13 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btn_planFragmentManager_previous"
+                android:id="@+id/btn_programFragmentManager_previous"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Previous" />
 
             <Button
-                android:id="@+id/btn_planFragmentManager_next"
+                android:id="@+id/btn_programFragmentManager_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next" />
@@ -107,13 +89,12 @@
     </TableLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView_planFragmentManager_planListFragment"
-        android:name="com.school.behealth.search.plans.PlanListFragment"
+        android:id="@+id/fragmentContainerView_programFragmentManager_programListFragment"
+        android:name="com.school.behealth.search.programs.ProgramListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/tl_planFragmentManager"
-        tools:layout="@layout/fragment_plan_list" />
+        app:layout_constraintTop_toBottomOf="@+id/tl_programFragmentManager"
+        tools:layout="@layout/fragment_program_list"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

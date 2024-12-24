@@ -1,16 +1,14 @@
 package com.school.behealth.search.programs.dtos
 
-import java.util.Date
-
 data class ProgramFilterResponse(
-    val programs: List<ProgramFilter>,
+    val programs: List<Program>,
 )
 
-data class ProgramFilter(
+data class Program(
     val id: Int,
     val title: String,
     val privacy: String,
-    val creationDatetime: Date,
+    val creationDatetime: String,
     val description: String,
     val creatorId: Int,
     val creatorName: String,

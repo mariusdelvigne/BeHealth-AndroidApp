@@ -1,6 +1,5 @@
 package com.school.behealth.search.plans
 
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -35,9 +34,8 @@ class PlanRecyclerViewAdapter(
 
     inner class ViewHolder(binding: FragmentPlanItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val tvCategory: TextView = binding.tvFragmentPlanSearchItemCategory
-        val tvDurationInDays: TextView = binding.tvFragmentPlanSearchItemDurationInDays
-        val tvName: TextView = binding.tvFragmentPlanSearchItemName
+        val tvCategory: TextView = binding.tvFragmentPlanItemCategory
+        val tvDurationInDays: TextView = binding.tvFragmentPlanItemDurationInDays
+        val tvName: TextView = binding.tvFragmentPlanItemName
     }
-
 }

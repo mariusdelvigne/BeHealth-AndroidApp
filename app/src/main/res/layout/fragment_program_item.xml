@@ -5,30 +5,20 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/tv_fragmentPlanItem_category"
+        android:id="@+id/tv_fragmentProgramItem_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_margin="@dimen/text_margin"
-        android:text="Sport"
+        android:text="Healthy program"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <TextView
-        android:id="@+id/tv_fragmentPlanItem_durationInDays"
+        android:id="@+id/tv_fragmentProgramItem_creatorName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_margin="@dimen/text_margin"
-        android:text="25"
+        android:text="Nathan"
         android:textAppearance="?attr/textAppearanceListItem" />
-
-    <TextView
-        android:id="@+id/tv_fragmentPlanItem_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="@dimen/text_margin"
-        android:text="Jog routine"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
 </LinearLayout>

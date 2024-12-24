@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentSearchBinding
 import com.school.behealth.search.plans.PlanManagerFragment
+import com.school.behealth.search.programs.ProgramManagerFragment
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
@@ -25,6 +26,10 @@ class SearchFragment : Fragment() {
     private fun setOnClickListeners() {
         binding.btnSearchFragmentGoToPlans.setOnClickListener {
             replaceFragment(PlanManagerFragment())
+        }
+
+        binding.btnSearchFragmentGoToPrograms.setOnClickListener {
+            replaceFragment(ProgramManagerFragment())
         }
     }
 

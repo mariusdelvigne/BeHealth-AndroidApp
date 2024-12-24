@@ -29,6 +29,7 @@
         <item>Bowling</item>
     </string-array>
     <string-array name="category_array">
+        <item></item>
         <item>sport</item>
         <item>food</item>
         <item>sleep</item>
