@@ -14,12 +14,27 @@ class PlanManagerViewModel : ViewModel() {
     val mutablePlanLiveData: MutableLiveData<List<Plan>> = MutableLiveData()
     private val planRepository = RetrofitFactory.instance.create(IPlanRepository::class.java)
 
+    var currentPage = 0
+    val pageSize = 10
+
     fun getPlansFiltered(query: PlanFilterQuery){
         viewModelScope.launch {
 
-            val response = planRepository.getPlansFiltered(query.name, query.category, query.privacy)
+            val response = planRepository.getPlansFiltered(query.name, query.category, query.privacy, currentPage, pageSize)
             Log.i("response get plans", "" + response)
             mutablePlanLiveData.postValue(response.plans)
+        }
+    }
+
+    fun nextPage() {
+        currentPage++
+        getPlansFiltered(PlanFilterQuery())
+    }
+
+    fun previousPage() {
+        if (currentPage > 0) {
+            currentPage--
+            getPlansFiltered(PlanFilterQuery())
         }
     }
 }

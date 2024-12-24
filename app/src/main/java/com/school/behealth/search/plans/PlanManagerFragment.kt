@@ -61,6 +61,14 @@ class PlanManagerFragment : Fragment() {
             Log.i("FilterQuery", "" + query)
             viewModel.getPlansFiltered(query)
         }
+
+        binding.btnPlanFragmentManagerNext.setOnClickListener {
+            viewModel.nextPage()
+        }
+
+        binding.btnPlanFragmentManagerPrevious.setOnClickListener {
+            viewModel.previousPage()
+        }
     }
 
     private fun setUpSpinner() {
