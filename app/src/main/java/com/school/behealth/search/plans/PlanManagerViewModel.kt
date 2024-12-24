@@ -15,7 +15,8 @@ class PlanManagerViewModel : ViewModel() {
 
     fun getPlansFiltered(query: PlanFilterQuery){
         viewModelScope.launch {
-            val response = planRepository.getPlansFiltered(query)
+
+            val response = planRepository.getPlansFiltered(query.name, query.category, query.privacy)
             mutablePlanLiveData.postValue(response)
         }
     }

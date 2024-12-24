@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
@@ -16,8 +17,6 @@ import com.school.behealth.search.plans.dtos.PlanFilterQuery
 
 class PlanManagerFragment : Fragment() {
     private lateinit var binding: FragmentPlanManagerBinding
-    private lateinit var fragmentListItem: FragmentPlanItemBinding
-
 
     companion object {
         fun newInstance() = PlanManagerFragment()
@@ -47,6 +46,7 @@ class PlanManagerFragment : Fragment() {
         viewModel.getPlansFiltered(query)
 
         setUpListeners()
+        setUpSpinner()
     }
 
     private fun setUpListeners() {
@@ -61,6 +61,17 @@ class PlanManagerFragment : Fragment() {
             )
 
             viewModel.getPlansFiltered(query)
+        }
+    }
+
+    private fun setUpSpinner() {
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.category_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+            binding.spPlanFragmentManagerCategoryPlan.adapter = adapter
         }
     }
 
