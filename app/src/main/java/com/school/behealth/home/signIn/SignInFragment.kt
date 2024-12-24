@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.school.behealth.databinding.FragmentSignInBinding
 import com.school.behealth.shared.dtos.SessionAuthenticateCommand
+import com.school.behealth.shared.model.SessionManager
 
 class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
-    private lateinit var viewModel: SignInManagerViewModel
+    private lateinit var session: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,8 +21,7 @@ class SignInFragment : Fragment() {
     ): View {
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
 
-        viewModel = ViewModelProvider(this)[SignInManagerViewModel::class.java]
-        viewModel.setContext(requireContext())
+        session = SessionManager(requireContext())
 
         setOnClickListener()
         observeViewModel()
@@ -36,23 +35,23 @@ class SignInFragment : Fragment() {
             val password = binding.etFragmentSignInPassword.text.toString()
 
             val command = SessionAuthenticateCommand(username, password)
-            viewModel.createSession(command)
+            session.createSession(command)
         }
         binding.btnFragmentHomeIsConnected.setOnClickListener {
-            viewModel.verifyConnection()
+            session.verifyConnection()
         }
     }
 
     private fun observeViewModel() {
-        viewModel.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
+        session.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
             Toast.makeText(requireContext(), "${response.username} + ${response.tokenExpirationDateTime}", Toast.LENGTH_LONG).show()
         }
 
-        viewModel.mutableLiveErrorMessage.observe(viewLifecycleOwner) { error ->
+        session.mutableLiveErrorMessage.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
         }
 
-        viewModel.isConnectedLiveData.observe(viewLifecycleOwner) { isConnected ->
+        session.isConnectedLiveData.observe(viewLifecycleOwner) { isConnected ->
             if (isConnected) {
                 Toast.makeText(requireContext(), "Connected", Toast.LENGTH_LONG).show()
             } else {
