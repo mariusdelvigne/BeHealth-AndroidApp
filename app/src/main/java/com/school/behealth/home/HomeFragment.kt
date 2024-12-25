@@ -1,5 +1,6 @@
 package com.school.behealth.home
 
+import com.school.behealth.shared.model.SessionManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentHomeBinding
+import com.school.behealth.home.homeUserConnected.HomeUserConnectedFragment
 import com.school.behealth.home.signIn.SignInFragment
 import com.school.behealth.home.signUp.SignUpFragment
-import com.school.behealth.shared.model.SessionManager
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -23,19 +24,26 @@ class HomeFragment : Fragment() {
 
         session = SessionManager(requireContext())
 
-        session.verifyConnection()
-        observeConnectionStatus()
+        connection()
+        session.printToken()
 
+        setOnClickListeners()
         return binding.root
     }
 
-    private fun observeConnectionStatus() {
-        session.isConnectedLiveData.observe(viewLifecycleOwner) { isConnected ->
-            if (isConnected) {
-                replaceFragment(SignUpFragment())
-            } else {
-                replaceFragment(SignInFragment())
-            }
+    private fun setOnClickListeners() {
+        binding.btnFragmentHomeGoToSignIn.setOnClickListener {
+            replaceFragment(SignInFragment())
+        }
+        binding.btnFragmentHomeGoToSignUp.setOnClickListener {
+            replaceFragment(SignUpFragment())
+        }
+    }
+
+    private fun connection(){
+        if (session.getUsername() != null && session.getPassword() != null){
+            session.userAuthenticate()
+            replaceFragment(HomeUserConnectedFragment())
         }
     }
 

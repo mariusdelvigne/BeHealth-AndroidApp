@@ -1,5 +1,6 @@
 package com.school.behealth.home.signIn
 
+import com.school.behealth.shared.model.SessionManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,9 +10,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentSignInBinding
+import com.school.behealth.home.homeUserConnected.HomeUserConnectedFragment
 import com.school.behealth.home.signUp.SignUpFragment
 import com.school.behealth.shared.dtos.SessionAuthenticateCommand
-import com.school.behealth.shared.model.SessionManager
+import com.school.behealth.shared.dtos.SessionDataResponse
+import java.time.LocalDateTime
+import java.util.Date
 
 class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
@@ -38,9 +42,11 @@ class SignInFragment : Fragment() {
 
             val command = SessionAuthenticateCommand(username, password)
             session.createSession(command)
-
-            //TODO REPLACE BY HOME_CONNECTED_FRAGEMENT
-            replaceFragment(SignUpFragment())
+//            val response = SessionDataResponse(1, "Warrior3000", "Admin", Date())
+            session.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
+                session.registerPref(response, command.password)
+                replaceFragment(HomeUserConnectedFragment())
+            }
         }
         binding.btnFragmentHomeIsConnected.setOnClickListener {
             session.verifyConnection()
@@ -62,7 +68,6 @@ class SignInFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Not connected", Toast.LENGTH_LONG).show()
             }
-            Log.i("SessionManager", isConnected.toString())
         }
     }
 
