@@ -1,7 +1,7 @@
 package com.school.behealth.shared.repositories
 
-import com.school.behealth.shared.dtos.SessionAuthenticateCommand
-import com.school.behealth.shared.dtos.SessionDataResponse
+import com.school.behealth.shared.dtos.session.SessionAuthenticateCommand
+import com.school.behealth.shared.dtos.session.SessionDataResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

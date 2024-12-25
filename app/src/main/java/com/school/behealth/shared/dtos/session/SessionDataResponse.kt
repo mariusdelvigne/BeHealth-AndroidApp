@@ -1,4 +1,4 @@
-package com.school.behealth.shared.dtos
+package com.school.behealth.shared.dtos.session
 
 import com.google.gson.annotations.SerializedName
 import java.util.Date

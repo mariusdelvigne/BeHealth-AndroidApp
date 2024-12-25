@@ -2,7 +2,6 @@ package com.school.behealth.calculators.bmiCalculator
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,11 +37,6 @@ class BmiCalculatorFragment : Fragment() {
             val age = binding.etFragmentBmiCalculatorAge.text.toString().toInt()
             val weight = binding.etFragmentBmiCalculatorWeight.text.toString().toDouble()
             val height = binding.etFragmentBmiCalculatorHeight.text.toString().toInt()
-
-            Log.i("Values", gender)
-            Log.i("Values", age.toString())
-            Log.i("Values", weight.toString())
-            Log.i("Values", height.toString())
 
             val command = BmiCalculatorCommand(gender, age, height, weight)
             viewModel.calculateBmi(command)

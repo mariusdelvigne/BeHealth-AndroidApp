@@ -6,23 +6,25 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.school.behealth.shared.dtos.SessionAuthenticateCommand
-import com.school.behealth.shared.dtos.SessionDataResponse
+import com.school.behealth.shared.dtos.session.SessionAuthenticateCommand
+import com.school.behealth.shared.dtos.session.SessionDataResponse
+import com.school.behealth.shared.dtos.user.create.UserCreateCommand
 import com.school.behealth.shared.repositories.ISessionRepository
+import com.school.behealth.shared.repositories.IUserRepository
 import com.school.behealth.utils.RetrofitFactory
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class SessionManager(
     context: Context,
-    private val sessionRepository: ISessionRepository = RetrofitFactory.instance.create(
-        ISessionRepository::class.java
-    )
+    private val sessionRepository: ISessionRepository = RetrofitFactory.instance.create(ISessionRepository::class.java),
+    private val userRepository: IUserRepository = RetrofitFactory.instance.create(IUserRepository::class.java)
 ) : ViewModel() {
-
     val mutableLiveSessionData: MutableLiveData<SessionDataResponse> = MutableLiveData()
     val mutableLiveErrorMessage: MutableLiveData<String> = MutableLiveData()
     val isConnectedLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val mutableDisconnectionLiveData: MutableLiveData<String> = MutableLiveData()
+    val mutableCreateUserLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     private val sharedPref = context.getSharedPreferences("JWT", MODE_PRIVATE)
 
@@ -104,6 +106,18 @@ class SessionManager(
             Log.i("JWT", "Token exists. Username: $username, Role: $role, UserID: $userId")
         } else {
             Log.i("JWT", "Token is null")
+        }
+    }
+
+    fun createUser(command: UserCreateCommand) {
+        viewModelScope.launch {
+            try {
+                userRepository.createUser(command)
+                mutableCreateUserLiveData.postValue(true)
+            } catch (e: HttpException) {
+                mutableLiveErrorMessage.postValue("Error: ${e.message()}")
+            }
+
         }
     }
 }

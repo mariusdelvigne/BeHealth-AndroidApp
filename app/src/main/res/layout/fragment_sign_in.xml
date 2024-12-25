@@ -37,12 +37,6 @@
             android:layout_marginTop="12dp"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/tv_fragmentSignIn_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username : " />
-
             <EditText
                 android:id="@+id/et_fragmentSignIn_username"
                 android:layout_width="wrap_content"
@@ -57,12 +51,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="12dp"
             android:gravity="center">
-
-            <TextView
-                android:id="@+id/tv_fragmentSignIn_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password : " />
 
             <EditText
                 android:id="@+id/et_fragmentSignIn_password"
@@ -85,14 +73,6 @@
                 android:layout_height="wrap_content"
                 android:text="Sign In" />
         </TableRow>
-
-        <Button
-            android:id="@+id/btn_fragmentHome_isConnected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="87dp" />
 
     </TableLayout>
 

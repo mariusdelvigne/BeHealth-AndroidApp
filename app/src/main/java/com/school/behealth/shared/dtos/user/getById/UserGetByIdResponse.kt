@@ -1,0 +1,15 @@
+package com.school.behealth.shared.dtos.user.getById
+
+import java.util.Date
+
+data class UserGetByIdResponse (
+    val id: Int,
+    val username: String,
+    val mail: String,
+    val role: String,
+    val birthDate: Date,
+    val gender: String,
+    val name: String,
+    val surname: String,
+    val isBanned: Boolean
+)

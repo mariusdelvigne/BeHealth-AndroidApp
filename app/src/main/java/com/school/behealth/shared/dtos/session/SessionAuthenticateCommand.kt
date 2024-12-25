@@ -1,4 +1,4 @@
-package com.school.behealth.shared.dtos
+package com.school.behealth.shared.dtos.session
 
 data class SessionAuthenticateCommand(
     val username: String,

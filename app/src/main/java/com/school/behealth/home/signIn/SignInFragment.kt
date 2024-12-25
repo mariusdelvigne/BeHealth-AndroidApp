@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentSignInBinding
 import com.school.behealth.home.homeUserConnected.HomeUserConnectedFragment
-import com.school.behealth.shared.dtos.SessionAuthenticateCommand
+import com.school.behealth.shared.dtos.session.SessionAuthenticateCommand
 import com.school.behealth.shared.model.SessionManager
 
 class SignInFragment : Fragment() {
@@ -21,7 +21,6 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
-
         session = SessionManager(requireContext())
 
         setOnClickListener()
@@ -35,15 +34,17 @@ class SignInFragment : Fragment() {
             val username = binding.etFragmentSignInUsername.text.toString()
             val password = binding.etFragmentSignInPassword.text.toString()
 
-            val command = SessionAuthenticateCommand(username, password)
+            val command = SessionAuthenticateCommand(
+                username = username,
+                password = password
+            )
+
             session.createSession(command)
+
             session.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
                 session.registerPref(response, command.password)
                 replaceFragment(HomeUserConnectedFragment())
             }
-        }
-        binding.btnFragmentHomeIsConnected.setOnClickListener {
-            session.verifyConnection()
         }
     }
 
