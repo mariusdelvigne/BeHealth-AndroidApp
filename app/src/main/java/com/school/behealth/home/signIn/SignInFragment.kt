@@ -1,8 +1,6 @@
 package com.school.behealth.home.signIn
 
-import com.school.behealth.shared.model.SessionManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +9,8 @@ import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentSignInBinding
 import com.school.behealth.home.homeUserConnected.HomeUserConnectedFragment
-import com.school.behealth.home.signUp.SignUpFragment
 import com.school.behealth.shared.dtos.SessionAuthenticateCommand
-import com.school.behealth.shared.dtos.SessionDataResponse
-import java.time.LocalDateTime
-import java.util.Date
+import com.school.behealth.shared.model.SessionManager
 
 class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
@@ -42,7 +37,6 @@ class SignInFragment : Fragment() {
 
             val command = SessionAuthenticateCommand(username, password)
             session.createSession(command)
-//            val response = SessionDataResponse(1, "Warrior3000", "Admin", Date())
             session.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
                 session.registerPref(response, command.password)
                 replaceFragment(HomeUserConnectedFragment())
@@ -55,19 +49,11 @@ class SignInFragment : Fragment() {
 
     private fun observeViewModel() {
         session.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
-            Toast.makeText(requireContext(), "${response.username} + ${response.tokenExpirationDateTime}", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Hello, ${response.username} you are connected on the app", Toast.LENGTH_LONG).show()
         }
 
         session.mutableLiveErrorMessage.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
-        }
-
-        session.isConnectedLiveData.observe(viewLifecycleOwner) { isConnected ->
-            if (isConnected) {
-                Toast.makeText(requireContext(), "Connected", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(requireContext(), "Not connected", Toast.LENGTH_LONG).show()
-            }
         }
     }
 

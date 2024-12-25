@@ -22,6 +22,7 @@ class SessionManager(
     val mutableLiveSessionData: MutableLiveData<SessionDataResponse> = MutableLiveData()
     val mutableLiveErrorMessage: MutableLiveData<String> = MutableLiveData()
     val isConnectedLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    val mutableDisconnectionLiveData: MutableLiveData<String> = MutableLiveData()
 
     private val sharedPref = context.getSharedPreferences("JWT", MODE_PRIVATE)
 
@@ -88,6 +89,7 @@ class SessionManager(
         viewModelScope.launch {
             try {
                 sessionRepository.deleteSession()
+                mutableDisconnectionLiveData.postValue("You have been disconnected from the app")
             } catch (e: Exception) {
                 mutableLiveErrorMessage.postValue("Disconnection Error: ${e.message}")
             }
