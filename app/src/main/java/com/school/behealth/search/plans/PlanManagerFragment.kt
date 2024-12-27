@@ -1,7 +1,6 @@
 package com.school.behealth.search.plans
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +33,6 @@ class PlanManagerFragment : Fragment() {
             .findFragmentById(R.id.fragmentContainerView_planFragmentManager_planListFragment) as PlanListFragment
 
         viewModel.mutablePlanLiveData.observe(viewLifecycleOwner) {
-            Log.i("Observed", "" + it)
             planListFragment.initUIWithTodoList(it)
         }
 
@@ -61,17 +59,13 @@ class PlanManagerFragment : Fragment() {
     private fun setUpListeners() {
         binding.btnPlanFragmentManagerFilter.setOnClickListener {
             val query = getFilterQuery()
-            viewModel.getPlansFiltered(query)
+            viewModel.currentPage = 0
+            viewModel.getPlansFiltered(query, true)
         }
 
-        binding.btnPlanFragmentManagerNext.setOnClickListener {
+        binding.btnPlanFragmentManagerMore.setOnClickListener{
             val query = getFilterQuery()
-            viewModel.nextPage(query)
-        }
-
-        binding.btnPlanFragmentManagerPrevious.setOnClickListener {
-            val query = getFilterQuery()
-            viewModel.previousPage(query)
+            viewModel.more(query)
         }
     }
 

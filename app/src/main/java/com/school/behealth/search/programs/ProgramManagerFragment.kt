@@ -60,7 +60,7 @@ class ProgramManagerFragment : Fragment() {
 
         binding.btnProgramFragmentManagerMore.setOnClickListener{
             val query = getFilterQuery()
-            viewModel.next(query)
+            viewModel.more(query)
         }
     }
 

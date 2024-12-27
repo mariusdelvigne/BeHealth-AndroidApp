@@ -33,8 +33,7 @@ class ProgramManagerViewModel : ViewModel() {
         }
     }
 
-
-    fun next(query: ProgramFilterQuery) {
+    fun more(query: ProgramFilterQuery) {
         currentPage++
         getProgramsFiltered(query)
     }
