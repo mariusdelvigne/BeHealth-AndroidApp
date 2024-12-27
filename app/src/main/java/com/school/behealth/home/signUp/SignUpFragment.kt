@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentSignUpBinding
-import com.school.behealth.home.homeUserConnected.HomeUserConnectedFragment
+import com.school.behealth.insert.InsertFragment
 import com.school.behealth.shared.dtos.session.SessionAuthenticateCommand
 import com.school.behealth.shared.dtos.user.create.UserCreateCommand
 import com.school.behealth.shared.model.SessionManager
@@ -94,7 +94,7 @@ class SignUpFragment : Fragment() {
 
         session.mutableLiveSessionData.observe(viewLifecycleOwner) { response ->
             session.registerPref(response, commandCreateSession.password)
-            replaceFragment(HomeUserConnectedFragment())
+            replaceFragment(InsertFragment())
         }
     }
 

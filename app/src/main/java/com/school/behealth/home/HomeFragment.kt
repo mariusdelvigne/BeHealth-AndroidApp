@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentHomeBinding
-import com.school.behealth.home.homeUserConnected.HomeUserConnectedFragment
 import com.school.behealth.home.signIn.SignInFragment
 import com.school.behealth.home.signUp.SignUpFragment
+import com.school.behealth.insert.InsertFragment
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     private fun connection(){
         if (session.getUsername() != null && session.getPassword() != null){
             session.userAuthenticate()
-            replaceFragment(HomeUserConnectedFragment())
+            replaceFragment(InsertFragment())
         }
     }
 
