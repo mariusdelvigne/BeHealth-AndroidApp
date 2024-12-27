@@ -1,5 +1,6 @@
 package com.school.behealth.insert
 
+import SleepInsertFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,10 @@ class InsertFragment : Fragment() {
 
         binding.btnFragmentInsertPeriods.setOnClickListener {
             replaceFragment(PeriodInsertFragment())
+        }
+
+        binding.btnFragmentInsertSleeps.setOnClickListener {
+            replaceFragment(SleepInsertFragment())
         }
     }
 

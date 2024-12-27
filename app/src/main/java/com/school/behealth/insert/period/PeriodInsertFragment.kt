@@ -57,7 +57,7 @@ class PeriodInsertFragment : Fragment() {
             showDateTimePickerDialog(binding.etFragmentPeriodInsertEndDate)
         }
 
-        binding.btnFragmentHeightInsertInsertPeriod.setOnClickListener {
+        binding.btnFragmentPeriodInsertInsertPeriod.setOnClickListener {
             val startDate = binding.etFragmentPeriodInsertStartDate.text.toString()
             val endDate = binding.etFragmentPeriodInsertEndDate.text.toString()
             val userId = session.getUserId()?.toIntOrNull()
