@@ -27,6 +27,7 @@ class ProgramListFragment : Fragment() {
                 adapter = programRecyclerViewAdapter
             }
         }
+
         return view
     }
 
