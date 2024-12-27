@@ -10,5 +10,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".search.plans.PlanListFragment"
-    android:scrollbars="vertical"
     tools:listitem="@layout/fragment_plan_item" />

@@ -10,6 +10,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".search.programs.ProgramListFragment"
-    android:scrollbars="vertical"
-    android:scrollbarStyle="insideOverlay"
     tools:listitem="@layout/fragment_program_item" />

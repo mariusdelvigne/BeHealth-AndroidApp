@@ -16,23 +16,26 @@ class ProgramManagerViewModel : ViewModel() {
     var currentPage = 0
     var pageSize = 10
 
-    fun getProgramsFiltered(query: ProgramFilterQuery){
+    fun getProgramsFiltered(query: ProgramFilterQuery, clearList: Boolean = false) {
         viewModelScope.launch {
-
             val response = programRepository.getProgramsFiltered(query.title, query.privacy, currentPage, pageSize)
-            mutableProgramLiveData.postValue(response.programs)
+
+            // Clear the list if clicks on filter
+            if (clearList) {
+                mutableProgramLiveData.postValue(response.programs)
+            }
+            // Add new elements to the existing list if click on more
+            else {
+                val currentList = mutableProgramLiveData.value.orEmpty().toMutableList()
+                currentList.addAll(response.programs)
+                mutableProgramLiveData.postValue(currentList)
+            }
         }
     }
 
-    fun nextPage(query: ProgramFilterQuery) {
+
+    fun next(query: ProgramFilterQuery) {
         currentPage++
         getProgramsFiltered(query)
-    }
-
-    fun previousPage(query: ProgramFilterQuery) {
-        if (currentPage > 0) {
-            currentPage--
-            getProgramsFiltered(query)
-        }
     }
 }

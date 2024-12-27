@@ -106,14 +106,20 @@
 
     </TableLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView_planFragmentManager_planListFragment"
-        android:name="com.school.behealth.search.plans.PlanListFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/tl_planFragmentManager"
-        tools:layout="@layout/fragment_plan_list" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tl_planFragmentManager">
 
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView_planFragmentManager_planListFragment"
+            android:name="com.school.behealth.search.plans.PlanListFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tl_planFragmentManager"
+            tools:layout="@layout/fragment_plan_list" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

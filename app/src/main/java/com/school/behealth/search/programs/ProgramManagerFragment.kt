@@ -2,7 +2,6 @@ package com.school.behealth.search.programs
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +31,6 @@ class ProgramManagerFragment : Fragment() {
             .findFragmentById(R.id.fragmentContainerView_programFragmentManager_programListFragment) as ProgramListFragment
 
         viewModel.mutableProgramLiveData.observe(viewLifecycleOwner) {
-            Log.i("Observed", "" + it)
             programListFragment.initUIWithTodoList(it)
         }
 
@@ -56,17 +54,13 @@ class ProgramManagerFragment : Fragment() {
     private fun setUpListeners() {
         binding.btnProgramFragmentManagerFilter.setOnClickListener {
             val query = getFilterQuery()
-            viewModel.getProgramsFiltered(query)
+            viewModel.currentPage = 0
+            viewModel.getProgramsFiltered(query, true)
         }
 
-        binding.btnProgramFragmentManagerNext.setOnClickListener {
+        binding.btnProgramFragmentManagerMore.setOnClickListener{
             val query = getFilterQuery()
-            viewModel.nextPage(query)
-        }
-
-        binding.btnProgramFragmentManagerPrevious.setOnClickListener {
-            val query = getFilterQuery()
-            viewModel.previousPage(query)
+            viewModel.next(query)
         }
     }
 
