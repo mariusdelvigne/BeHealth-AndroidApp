@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentInsertBinding
 import com.school.behealth.insert.height.HeightInsertFragment
+import com.school.behealth.insert.period.PeriodInsertFragment
 
 class InsertFragment : Fragment() {
     private lateinit var binding: FragmentInsertBinding
@@ -26,6 +27,10 @@ class InsertFragment : Fragment() {
     private fun setOnClickListeners() {
         binding.btnFragmentInsertHeight.setOnClickListener {
             replaceFragment(HeightInsertFragment())
+        }
+
+        binding.btnFragmentInsertPeriods.setOnClickListener {
+            replaceFragment(PeriodInsertFragment())
         }
     }
 
