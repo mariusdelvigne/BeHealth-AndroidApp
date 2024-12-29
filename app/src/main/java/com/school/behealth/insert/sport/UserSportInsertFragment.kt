@@ -1,24 +1,28 @@
+package com.school.behealth.insert.sport
+
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.school.behealth.databinding.FragmentSleepInsertBinding
-import com.school.behealth.insert.sleep.SleepInsertManagerViewModel
-import com.school.behealth.insert.sleep.dtos.CreateUserSleepCommand
+import com.school.behealth.R
+import com.school.behealth.databinding.FragmentUserSportInsertBinding
+import com.school.behealth.insert.sport.dtos.CreateUserSportCommand
 import com.school.behealth.shared.model.SessionManager
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
 
-class SleepInsertFragment : Fragment() {
-    private lateinit var binding: FragmentSleepInsertBinding
-    private lateinit var viewModel: SleepInsertManagerViewModel
+class UserSportInsertFragment : Fragment() {
+    private lateinit var binding: FragmentUserSportInsertBinding
+    private lateinit var viewModel: UserSportInsertManagerViewModel
     private lateinit var session: SessionManager
     private var startDateTime: Calendar = Calendar.getInstance()
     private var endDateTime: Calendar = Calendar.getInstance()
@@ -27,11 +31,12 @@ class SleepInsertFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSleepInsertBinding.inflate(layoutInflater, container, false)
+        binding = FragmentUserSportInsertBinding.inflate(layoutInflater, container, false)
 
         session = SessionManager(requireContext())
-        viewModel = ViewModelProvider(this)[SleepInsertManagerViewModel::class.java]
+        viewModel = ViewModelProvider(this)[UserSportInsertManagerViewModel::class.java]
 
+        setUpSpinner()
         setUpListeners()
         observeViewModel()
 
@@ -39,47 +44,54 @@ class SleepInsertFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.mutableLiveUserSleepData.observe(viewLifecycleOwner) { response ->
+        viewModel.mutableLiveUserSportData.observe(viewLifecycleOwner) { response ->
             Toast.makeText(
                 requireContext(),
-                "You added ${response.startDatetime} to ${response.endDatetime} as data Sleep",
+                "You added ${response.name} starting at ${response.startDatetime} and ending at ${response.endDatetime}",
                 Toast.LENGTH_LONG
             ).show()
         }
     }
 
     private fun setUpListeners() {
-        binding.etFragmentSleepInsertStartDate.setOnClickListener {
+        binding.etFragmentUserSportInsertUserSportDateStart.setOnClickListener {
             showDateTimePicker(startDateTime) { formattedDateTime ->
-                binding.etFragmentSleepInsertStartDate.text = formattedDateTime
+                binding.etFragmentUserSportInsertUserSportDateStart.text = formattedDateTime
             }
         }
 
-        binding.etFragmentSleepInsertEndDate.setOnClickListener {
-            showDateTimePicker(endDateTime) {formattedDateTime ->
-                binding.etFragmentSleepInsertEndDate.text = formattedDateTime
+        binding.etFragmentUserSportInsertUserSportDateEnd.setOnClickListener {
+            showDateTimePicker(endDateTime) { formattedDateTime ->
+                binding.etFragmentUserSportInsertUserSportDateEnd.text = formattedDateTime
             }
         }
 
-        binding.btnFragmentSleepInsertInsertSleep.setOnClickListener {
+        binding.btnFragmentUserSportInsertInsertUserSport.setOnClickListener {
+            val nameSport = binding.spFragmentUserSportInsertSportSelected.selectedItem.toString()
+
             val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
             isoDateFormat.timeZone = TimeZone.getTimeZone("UTC")
 
             val startDateTimeFormatted = isoDateFormat.format(startDateTime.time)
             val endDateTimeFormatted = isoDateFormat.format(endDateTime.time)
 
-            val userId = session.getUserId()?.toIntOrNull()
+            val userId = session.getUserId()!!.toInt()
 
-            if (userId != null && startDateTimeFormatted.isNotEmpty() && startDateTimeFormatted.isNotEmpty()) {
-                val command = CreateUserSleepCommand(
-                    startDatetime = startDateTimeFormatted,
-                    endDatetime = endDateTimeFormatted
-                )
-
-                viewModel.insertUserSleep(userId, command)
-            } else {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            if (nameSport.isBlank()) {
+                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            Log.i("SportDate", startDateTimeFormatted)
+            Log.i("SportDate", endDateTimeFormatted)
+
+            val command = CreateUserSportCommand(
+                name = nameSport,
+                startDateTime = startDateTimeFormatted,
+                endDateTime = endDateTimeFormatted
+            )
+
+            viewModel.insertUserSport(userId, command)
         }
     }
 
@@ -117,7 +129,18 @@ class SleepInsertFragment : Fragment() {
         ).show()
     }
 
+    private fun setUpSpinner() {
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.sport_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+            binding.spFragmentUserSportInsertSportSelected.adapter = adapter
+        }
+    }
+
     companion object {
-        fun newInstance() = SleepInsertFragment()
+        fun newInstance() = UserSportInsertFragment()
     }
 }

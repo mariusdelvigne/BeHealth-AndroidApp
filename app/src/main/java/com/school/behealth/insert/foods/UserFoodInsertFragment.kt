@@ -1,36 +1,37 @@
+package com.school.behealth.insert.foods
+
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.school.behealth.databinding.FragmentSleepInsertBinding
-import com.school.behealth.insert.sleep.SleepInsertManagerViewModel
-import com.school.behealth.insert.sleep.dtos.CreateUserSleepCommand
+import com.school.behealth.databinding.FragmentUserFoodInsertBinding
+import com.school.behealth.insert.foods.dtos.CreateUserFoodCommand
 import com.school.behealth.shared.model.SessionManager
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
 
-class SleepInsertFragment : Fragment() {
-    private lateinit var binding: FragmentSleepInsertBinding
-    private lateinit var viewModel: SleepInsertManagerViewModel
+class UserFoodInsertFragment : Fragment() {
+    private lateinit var binding: FragmentUserFoodInsertBinding
+    private lateinit var viewModel: UserFoodInsertManagerViewModel
     private lateinit var session: SessionManager
-    private var startDateTime: Calendar = Calendar.getInstance()
-    private var endDateTime: Calendar = Calendar.getInstance()
+    private var selectedDateTime: Calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSleepInsertBinding.inflate(layoutInflater, container, false)
+        binding = FragmentUserFoodInsertBinding.inflate(layoutInflater, container, false)
 
         session = SessionManager(requireContext())
-        viewModel = ViewModelProvider(this)[SleepInsertManagerViewModel::class.java]
+        viewModel = ViewModelProvider(this)[UserFoodInsertManagerViewModel::class.java]
 
         setUpListeners()
         observeViewModel()
@@ -39,47 +40,47 @@ class SleepInsertFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.mutableLiveUserSleepData.observe(viewLifecycleOwner) { response ->
+        viewModel.mutableLiveUserFoodData.observe(viewLifecycleOwner) { response ->
             Toast.makeText(
                 requireContext(),
-                "You added ${response.startDatetime} to ${response.endDatetime} as data Sleep",
+                "You added ${response.quantityInG} g as eaten food: ${response.name}",
                 Toast.LENGTH_LONG
             ).show()
         }
     }
 
     private fun setUpListeners() {
-        binding.etFragmentSleepInsertStartDate.setOnClickListener {
-            showDateTimePicker(startDateTime) { formattedDateTime ->
-                binding.etFragmentSleepInsertStartDate.text = formattedDateTime
+        binding.etFragmentUserFoodInsertDateTimeEaten.setOnClickListener {
+            showDateTimePicker(selectedDateTime){ formattedDateTime ->
+                binding.etFragmentUserFoodInsertDateTimeEaten.text = formattedDateTime
             }
         }
 
-        binding.etFragmentSleepInsertEndDate.setOnClickListener {
-            showDateTimePicker(endDateTime) {formattedDateTime ->
-                binding.etFragmentSleepInsertEndDate.text = formattedDateTime
-            }
-        }
+        binding.btnFragmentUserFoodInsertInsertUserFood.setOnClickListener {
+            val name = binding.etFragmentUserFoodInsertNameFood.text.toString()
+            val quantityInG = binding.etFragmentUserFoodInsertQuantity.text.toString().toIntOrNull()
 
-        binding.btnFragmentSleepInsertInsertSleep.setOnClickListener {
             val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
             isoDateFormat.timeZone = TimeZone.getTimeZone("UTC")
 
-            val startDateTimeFormatted = isoDateFormat.format(startDateTime.time)
-            val endDateTimeFormatted = isoDateFormat.format(endDateTime.time)
+            val dateTimeEaten = isoDateFormat.format(selectedDateTime.time)
 
-            val userId = session.getUserId()?.toIntOrNull()
+            val userId = session.getUserId()!!.toInt()
 
-            if (userId != null && startDateTimeFormatted.isNotEmpty() && startDateTimeFormatted.isNotEmpty()) {
-                val command = CreateUserSleepCommand(
-                    startDatetime = startDateTimeFormatted,
-                    endDatetime = endDateTimeFormatted
-                )
-
-                viewModel.insertUserSleep(userId, command)
-            } else {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            if (name.isBlank() || quantityInG == null) {
+                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            Log.i("DateTime", dateTimeEaten)
+
+            val command = CreateUserFoodCommand(
+                name = name,
+                quantityInG = quantityInG,
+                eatenDateTime = dateTimeEaten
+            )
+
+            viewModel.insertUserFood(userId, command)
         }
     }
 
@@ -118,6 +119,6 @@ class SleepInsertFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = SleepInsertFragment()
+        fun newInstance() = UserFoodInsertFragment()
     }
 }

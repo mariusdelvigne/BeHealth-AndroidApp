@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentInsertBinding
+import com.school.behealth.insert.foods.UserFoodInsertFragment
 import com.school.behealth.insert.height.HeightInsertFragment
 import com.school.behealth.insert.period.PeriodInsertFragment
+import com.school.behealth.insert.sport.UserSportInsertFragment
+import com.school.behealth.insert.weight.WeightInsertFragment
 
 class InsertFragment : Fragment() {
     private lateinit var binding: FragmentInsertBinding
@@ -30,12 +33,24 @@ class InsertFragment : Fragment() {
             replaceFragment(HeightInsertFragment())
         }
 
+        binding.btnFragmentInsertWeight.setOnClickListener {
+            replaceFragment(WeightInsertFragment())
+        }
+
         binding.btnFragmentInsertPeriods.setOnClickListener {
             replaceFragment(PeriodInsertFragment())
         }
 
+        binding.btnFragmentInsertFoods.setOnClickListener {
+            replaceFragment(UserFoodInsertFragment())
+        }
+
         binding.btnFragmentInsertSleeps.setOnClickListener {
             replaceFragment(SleepInsertFragment())
+        }
+
+        binding.btnFragmentInsertSport.setOnClickListener {
+            replaceFragment(UserSportInsertFragment())
         }
     }
 
