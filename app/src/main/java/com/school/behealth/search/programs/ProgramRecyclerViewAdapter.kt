@@ -42,7 +42,7 @@ class ProgramRecyclerViewAdapter(
     }
 
     private fun showProgramActionDialog(context: Context, program: Program) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.fragment_program_dialog, null)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_program_relations, null)
 
         val btnToggleFavorite: Button = dialogView.findViewById(R.id.btn_toggleFavorite)
         val btnToggleSubscription: Button = dialogView.findViewById(R.id.btn_toggleSubscription)
