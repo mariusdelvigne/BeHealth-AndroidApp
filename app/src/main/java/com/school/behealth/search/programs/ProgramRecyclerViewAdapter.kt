@@ -4,7 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.school.behealth.R
 import com.school.behealth.databinding.FragmentProgramItemBinding
 import com.school.behealth.search.programs.dtos.Program
 
@@ -37,6 +39,12 @@ class ProgramRecyclerViewAdapter(
                 holder.tvDescription.visibility = View.GONE
             }
         }
+
+        if (program.isFavorite) {
+            holder.ivFavorite.setImageResource(R.drawable.ic_star_filled)
+        } else {
+            holder.ivFavorite.setImageResource(R.drawable.ic_star_empty)
+        }
     }
 
     override fun getItemCount(): Int = values.size
@@ -46,5 +54,6 @@ class ProgramRecyclerViewAdapter(
         val tvTitle: TextView = binding.tvFragmentProgramItemTitle
         val tvCreatorName: TextView = binding.tvFragmentProgramItemCreatorName
         val tvDescription: TextView = binding.tvFragmentProgramItemDescription
+        val ivFavorite: ImageView = binding.ivFragmentProgramItemFavorite
     }
 }

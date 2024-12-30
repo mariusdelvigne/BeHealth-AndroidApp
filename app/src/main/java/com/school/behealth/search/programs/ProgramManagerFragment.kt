@@ -10,9 +10,11 @@ import android.widget.EditText
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentProgramManagerBinding
 import com.school.behealth.search.programs.dtos.ProgramFilterQuery
+import com.school.behealth.shared.model.SessionManager
 
 class ProgramManagerFragment : Fragment() {
     private lateinit var binding: FragmentProgramManagerBinding
+    private lateinit var session: SessionManager
 
     companion object {
         fun newInstance() = ProgramManagerFragment()
@@ -22,6 +24,7 @@ class ProgramManagerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        session = SessionManager(requireContext())
     }
 
     override fun onStart() {
@@ -34,10 +37,17 @@ class ProgramManagerFragment : Fragment() {
             programListFragment.initUIWithTodoList(it)
         }
 
-        val query = ProgramFilterQuery(
-            privacy = "public",
-        )
+        viewModel.mutableAssociationLiveData.observe(viewLifecycleOwner) {
+            viewModel.syncFavoritesWithPrograms()
+        }
+
+        val query = ProgramFilterQuery(privacy = "public")
         viewModel.getProgramsFiltered(query)
+
+        val userId = session.getUserId()
+        if (userId != null) {
+            viewModel.getAllAssociations("favorite", userId.toInt())
+        }
 
         setUpListeners()
     }

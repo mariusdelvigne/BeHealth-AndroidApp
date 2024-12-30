@@ -43,6 +43,15 @@
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:gravity="end" />
 
+            <ImageView
+                android:id="@+id/iv_fragmentProgramItem_favorite"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_star_empty" />
+
+
         </LinearLayout>
 
         <TextView
