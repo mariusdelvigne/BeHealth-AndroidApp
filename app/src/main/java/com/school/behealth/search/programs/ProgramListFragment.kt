@@ -31,7 +31,7 @@ class ProgramListFragment : Fragment() {
         return view
     }
 
-    fun initUIWithTodoList(programs: List<Program>) {
+    fun initUIWithProgramList(programs: List<Program>) {
         this.programs.clear()
         programs.forEach { this.programs.add(it) }
         programRecyclerViewAdapter.notifyDataSetChanged()

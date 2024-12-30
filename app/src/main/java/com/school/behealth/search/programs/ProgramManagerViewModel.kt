@@ -14,7 +14,9 @@ import kotlinx.coroutines.launch
 
 class ProgramManagerViewModel : ViewModel() {
     val mutableProgramLiveData: MutableLiveData<List<Program>> = MutableLiveData()
-    val mutableAssociationLiveData: MutableLiveData<List<Association>> = MutableLiveData()
+    val mutableFavoritesLiveData: MutableLiveData<List<Association>> = MutableLiveData()
+    val mutableSubscriptionsLiveData: MutableLiveData<List<Association>> = MutableLiveData()
+
     private val programRepository = RetrofitFactory.instance.create(IProgramRepository::class.java)
     private val associationRepository = RetrofitFactory.instance.create(IAssociationRepository::class.java)
 
@@ -40,29 +42,37 @@ class ProgramManagerViewModel : ViewModel() {
 
     fun getAllAssociations(relationType: String, userId: Int) {
         viewModelScope.launch {
-            try {
-                val response = associationRepository.getAllAssociations(userId, relationType, currentPage, pageSize)
-                mutableAssociationLiveData.postValue(response.astHealthProgramUsers)
-            } catch (e: Exception) {
-                Log.e("ProgramViewModel", "Error fetching associations", e)
+            val response = associationRepository.getAllAssociations(userId, relationType, currentPage, pageSize)
+
+            if (relationType == "favorite") {
+                mutableFavoritesLiveData.postValue(response.astHealthProgramUsers)
+            }
+            else if (relationType == "subscription") {
+                mutableSubscriptionsLiveData.postValue(response.astHealthProgramUsers)
             }
         }
     }
 
-
     fun syncFavoritesWithPrograms() {
-        val associations = mutableAssociationLiveData.value.orEmpty()
+        val favoriteAssociations = mutableFavoritesLiveData.value.orEmpty()
         val programs = mutableProgramLiveData.value.orEmpty().toMutableList()
 
-
-        Log.d("ProgramViewModel", "associations" + associations)
         programs.forEach { program ->
-            Log.d("ProgramViewModel", "program id" + program.id)
-            program.isFavorite = associations.any { it.program.id == program.id}
+            program.isFavorite = favoriteAssociations.any { it.program.id == program.id }
         }
         mutableProgramLiveData.postValue(programs)
     }
 
+    fun syncSubscriptionsWithPrograms() {
+        val subscriptionAssociations = mutableSubscriptionsLiveData.value.orEmpty()
+        val programs = mutableProgramLiveData.value.orEmpty().toMutableList()
+
+        Log.d("ProgramViewModel", "subscriptionAssociations: $subscriptionAssociations")
+        programs.forEach { program ->
+            program.isSubscribed = subscriptionAssociations.any { it.program.id == program.id }
+        }
+        mutableProgramLiveData.postValue(programs)
+    }
 
     fun more(query: ProgramFilterQuery) {
         currentPage++

@@ -45,6 +45,12 @@ class ProgramRecyclerViewAdapter(
         } else {
             holder.ivFavorite.setImageResource(R.drawable.ic_star_empty)
         }
+
+        if (program.isSubscribed) {
+            holder.ivSubscription.setImageResource(R.drawable.ic_subscription_active)
+        } else {
+            holder.ivSubscription.setImageResource(R.drawable.ic_subscription_inactive)
+        }
     }
 
     override fun getItemCount(): Int = values.size
@@ -55,5 +61,6 @@ class ProgramRecyclerViewAdapter(
         val tvCreatorName: TextView = binding.tvFragmentProgramItemCreatorName
         val tvDescription: TextView = binding.tvFragmentProgramItemDescription
         val ivFavorite: ImageView = binding.ivFragmentProgramItemFavorite
+        val ivSubscription: ImageView = binding.ivFragmentProgramItemSubscription
     }
 }

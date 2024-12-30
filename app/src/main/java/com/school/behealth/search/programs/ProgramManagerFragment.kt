@@ -34,11 +34,15 @@ class ProgramManagerFragment : Fragment() {
             .findFragmentById(R.id.fragmentContainerView_programFragmentManager_programListFragment) as ProgramListFragment
 
         viewModel.mutableProgramLiveData.observe(viewLifecycleOwner) {
-            programListFragment.initUIWithTodoList(it)
+            programListFragment.initUIWithProgramList(it)
         }
 
-        viewModel.mutableAssociationLiveData.observe(viewLifecycleOwner) {
+        viewModel.mutableFavoritesLiveData.observe(viewLifecycleOwner) {
             viewModel.syncFavoritesWithPrograms()
+        }
+
+        viewModel.mutableSubscriptionsLiveData.observe(viewLifecycleOwner) {
+            viewModel.syncSubscriptionsWithPrograms()
         }
 
         val query = ProgramFilterQuery(privacy = "public")
@@ -47,6 +51,7 @@ class ProgramManagerFragment : Fragment() {
         val userId = session.getUserId()
         if (userId != null) {
             viewModel.getAllAssociations("favorite", userId.toInt())
+            viewModel.getAllAssociations("subscription", userId.toInt())
         }
 
         setUpListeners()
