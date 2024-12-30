@@ -153,7 +153,7 @@ class UserFoodInsertFragment : Fragment() {
             textView.text =
                 "Food name: ${response.foodsName} " +
                 "\nQuantity: ${response.servingWeights} g"
-            Glide.with(requireContext())
+            Glide.with(this)
                 .load(response.photoFood)
                 .override(600, 400)
                 .into(imageView)

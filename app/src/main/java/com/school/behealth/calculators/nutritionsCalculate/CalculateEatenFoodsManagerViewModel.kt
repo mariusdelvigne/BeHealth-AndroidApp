@@ -19,6 +19,7 @@ class CalculateEatenFoodsManagerViewModel : ViewModel() {
             try {
                 val response = eatenFoodsCaloriesRepository.foodCalculatorCall(command)
                 mutableLiveCaloriesFoodEatenData.postValue(response)
+                Log.i("EatenFoodsCalculator", response.toString())
             } catch (e: Exception) {
                 Log.e("CalculateBmiManager", "Error calculating BMI", e)
             }

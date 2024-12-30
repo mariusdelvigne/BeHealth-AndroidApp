@@ -2,14 +2,14 @@ package com.school.behealth.calculators.nutritionsCalculate
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.school.behealth.R
+import com.bumptech.glide.request.RequestOptions
 import com.school.behealth.databinding.FragmentEatensFoodsCalculatorBinding
 import com.school.behealth.shared.dtos.foodApiCall.CreateFoodApiCallCommand
 
@@ -64,6 +64,13 @@ class EatenFoodsCalculatorFragment : Fragment() {
                 binding.tvFragmentEatenFoodsCalculatorPotassiumResult.text =
                     response.potassium.toString() + "gr"
 
+                val imageView = binding.ivFoodImage
+
+                Log.d("EatenFoodsCalculator", "Loading image from URL: ${response.photoFood.toString()}")
+                Glide.with(this)
+                    .load(response.photoFood)
+                    .apply(RequestOptions().override(600, 400))
+                    .into(binding.ivFoodImage)
             }
         }
     }
