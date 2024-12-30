@@ -7,6 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.school.behealth.insert.foods.dtos.CreateUserFoodCommand
 import com.school.behealth.insert.foods.dtos.CreateUserFoodResponse
 import com.school.behealth.insert.foods.repositories.IUserFoodRepository
+import com.school.behealth.shared.dtos.foodApiCall.CreateFoodApiCallCommand
+import com.school.behealth.shared.dtos.foodApiCall.CreateFoodApiCallResponse
+import com.school.behealth.shared.repositories.IFoodApiCallRepository
 import com.school.behealth.utils.RetrofitFactory
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -15,6 +18,9 @@ class UserFoodInsertManagerViewModel : ViewModel() {
     val mutableLiveUserFoodData: MutableLiveData<CreateUserFoodResponse> = MutableLiveData()
     private val userFoodRepository =
         RetrofitFactory.instance.create(IUserFoodRepository::class.java)
+
+    val mutableLiveFoodApiCallData: MutableLiveData<CreateFoodApiCallResponse> = MutableLiveData()
+    private val foodApiCallRepository = RetrofitFactory.instance.create(IFoodApiCallRepository::class.java)
 
     fun insertUserFood(userId: Int, command: CreateUserFoodCommand) {
         viewModelScope.launch {
@@ -25,6 +31,20 @@ class UserFoodInsertManagerViewModel : ViewModel() {
                 Log.e("UserFoodInsertManager", "HTTP Error: ${e.code()} - ${e.message()}", e)
             } catch (e: Exception) {
                 Log.e("UserFoodInsertManager", "Unexpected Error", e)
+            }
+
+        }
+    }
+
+    fun searchFoodApi(command: CreateFoodApiCallCommand){
+        viewModelScope.launch {
+            try {
+                val response = foodApiCallRepository.foodCalculatorCall(command)
+                mutableLiveFoodApiCallData.postValue(response)
+            } catch (e: HttpException) {
+                Log.e("FoodApiCall", "HTTP Error: ${e.code()} - ${e.message()}", e)
+            } catch (e: Exception) {
+                Log.e("FoodApiCall", "Unexpected Error", e)
             }
 
         }

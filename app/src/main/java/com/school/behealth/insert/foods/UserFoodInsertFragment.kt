@@ -1,5 +1,7 @@
 package com.school.behealth.insert.foods
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -7,11 +9,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.school.behealth.R
 import com.school.behealth.databinding.FragmentUserFoodInsertBinding
 import com.school.behealth.insert.foods.dtos.CreateUserFoodCommand
+import com.school.behealth.shared.dtos.foodApiCall.CreateFoodApiCallCommand
 import com.school.behealth.shared.model.SessionManager
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -51,7 +58,7 @@ class UserFoodInsertFragment : Fragment() {
 
     private fun setUpListeners() {
         binding.etFragmentUserFoodInsertDateTimeEaten.setOnClickListener {
-            showDateTimePicker(selectedDateTime){ formattedDateTime ->
+            showDateTimePicker(selectedDateTime) { formattedDateTime ->
                 binding.etFragmentUserFoodInsertDateTimeEaten.text = formattedDateTime
             }
         }
@@ -68,7 +75,8 @@ class UserFoodInsertFragment : Fragment() {
             val userId = session.getUserId()!!.toInt()
 
             if (name.isBlank() || quantityInG == null) {
-                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
@@ -80,7 +88,9 @@ class UserFoodInsertFragment : Fragment() {
                 eatenDateTime = dateTimeEaten
             )
 
-            viewModel.insertUserFood(userId, command)
+            showConfirmationDialog {
+                viewModel.insertUserFood(userId, command)
+            }
         }
     }
 
@@ -117,6 +127,50 @@ class UserFoodInsertFragment : Fragment() {
             calendar.get(Calendar.DAY_OF_MONTH)
         ).show()
     }
+
+    @SuppressLint("SetTextI18n")
+    private fun showConfirmationDialog(onConfirm: () -> Unit) {
+        val name = binding.etFragmentUserFoodInsertNameFood.text.toString()
+        val quantityInG = binding.etFragmentUserFoodInsertQuantity.text.toString().toIntOrNull()
+
+        if (name.isBlank() || quantityInG == null) {
+            Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val command = CreateFoodApiCallCommand(
+            nameFood = name,
+            quantityInGrams = quantityInG
+        )
+
+        viewModel.searchFoodApi(command)
+
+        viewModel.mutableLiveFoodApiCallData.observe(viewLifecycleOwner) { response ->
+            val dialogView = layoutInflater.inflate(R.layout.dialog_food_confirmation, null)
+            val imageView = dialogView.findViewById<ImageView>(R.id.ivFoodImage)
+            val textView = dialogView.findViewById<TextView>(R.id.tvFoodDetails)
+
+            textView.text =
+                "Food name: ${response.foodsName} " +
+                "\nQuantity: ${response.servingWeights} g"
+            Glide.with(requireContext())
+                .load(response.photoFood)
+                .override(600, 400)
+                .into(imageView)
+
+            AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .setPositiveButton("Validate") { dialog, id ->
+                    onConfirm()
+                }
+                .setNegativeButton("Cancel") { dialog, id ->
+                    dialog.cancel()
+                }
+                .create()
+                .show()
+        }
+    }
+
 
     companion object {
         fun newInstance() = UserFoodInsertFragment()
