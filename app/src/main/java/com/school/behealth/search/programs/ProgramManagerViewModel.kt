@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.school.behealth.search.programs.dtos.Association
+import com.school.behealth.search.programs.dtos.AssociationCreateCommand
 import com.school.behealth.search.programs.dtos.Program
 import com.school.behealth.search.programs.dtos.ProgramFilterQuery
 import com.school.behealth.search.programs.repositories.IAssociationRepository
@@ -18,14 +19,20 @@ class ProgramManagerViewModel : ViewModel() {
     val mutableSubscriptionsLiveData: MutableLiveData<List<Association>> = MutableLiveData()
 
     private val programRepository = RetrofitFactory.instance.create(IProgramRepository::class.java)
-    private val associationRepository = RetrofitFactory.instance.create(IAssociationRepository::class.java)
+    private val associationRepository =
+        RetrofitFactory.instance.create(IAssociationRepository::class.java)
 
     var currentPage = 0
     var pageSize = 10
 
     fun getProgramsFiltered(query: ProgramFilterQuery, clearList: Boolean = false) {
         viewModelScope.launch {
-            val response = programRepository.getProgramsFiltered(query.title, query.privacy, currentPage, pageSize)
+            val response = programRepository.getProgramsFiltered(
+                query.title,
+                query.privacy,
+                currentPage,
+                pageSize
+            )
 
             // Clear the list if clicks on filter
             if (clearList) {
@@ -42,16 +49,48 @@ class ProgramManagerViewModel : ViewModel() {
 
     fun getAllAssociations(relationType: String, userId: Int) {
         viewModelScope.launch {
-            val response = associationRepository.getAllAssociations(userId, relationType, currentPage, pageSize)
+            val response = associationRepository.getAllAssociations(
+                userId,
+                relationType,
+                currentPage,
+                pageSize
+            )
 
             if (relationType == "favorite") {
                 mutableFavoritesLiveData.postValue(response.astHealthProgramUsers)
-            }
-            else if (relationType == "subscription") {
+            } else if (relationType == "subscription") {
                 mutableSubscriptionsLiveData.postValue(response.astHealthProgramUsers)
             }
         }
     }
+
+    fun changeAssociation(userId: Int, programId: Int, relationType: String, action: String) {
+        viewModelScope.launch {
+            if (action == "add") {
+                val command = AssociationCreateCommand(programId, relationType)
+                val response = associationRepository.createAssociation(
+                    userId = userId,
+                    command = command
+                )
+
+            } else if (action == "remove") {
+                associationRepository.deleteAssociation(
+                    userId = userId,
+                    relationType = relationType,
+                    programId = programId
+                )
+            }
+
+            getAllAssociations(relationType, userId)
+
+            if (relationType == "favorite") {
+                syncFavoritesWithPrograms()
+            } else if (relationType == "subscription") {
+                syncSubscriptionsWithPrograms()
+            }
+        }
+    }
+
 
     fun syncFavoritesWithPrograms() {
         val favoriteAssociations = mutableFavoritesLiveData.value.orEmpty()
@@ -67,7 +106,6 @@ class ProgramManagerViewModel : ViewModel() {
         val subscriptionAssociations = mutableSubscriptionsLiveData.value.orEmpty()
         val programs = mutableProgramLiveData.value.orEmpty().toMutableList()
 
-        Log.d("ProgramViewModel", "subscriptionAssociations: $subscriptionAssociations")
         programs.forEach { program ->
             program.isSubscribed = subscriptionAssociations.any { it.program.id == program.id }
         }

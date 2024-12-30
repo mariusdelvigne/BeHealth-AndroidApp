@@ -1,8 +1,8 @@
 package com.school.behealth.search.programs
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +14,13 @@ import com.school.behealth.shared.model.SessionManager
 
 class ProgramManagerFragment : Fragment() {
     private lateinit var binding: FragmentProgramManagerBinding
-    private lateinit var session: SessionManager
+    lateinit var session: SessionManager
+
+    private val viewModel: ProgramManagerViewModel by viewModels()
 
     companion object {
         fun newInstance() = ProgramManagerFragment()
     }
-
-    private val viewModel: ProgramManagerViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +33,8 @@ class ProgramManagerFragment : Fragment() {
         val programListFragment = childFragmentManager
             .findFragmentById(R.id.fragmentContainerView_programFragmentManager_programListFragment) as ProgramListFragment
 
-        viewModel.mutableProgramLiveData.observe(viewLifecycleOwner) {
-            programListFragment.initUIWithProgramList(it)
+        viewModel.mutableProgramLiveData.observe(viewLifecycleOwner) { programs ->
+            programListFragment.initUIWithProgramList(programs)
         }
 
         viewModel.mutableFavoritesLiveData.observe(viewLifecycleOwner) {
@@ -73,9 +73,27 @@ class ProgramManagerFragment : Fragment() {
             viewModel.getProgramsFiltered(query, true)
         }
 
-        binding.btnProgramFragmentManagerMore.setOnClickListener{
+        binding.btnProgramFragmentManagerMore.setOnClickListener {
             val query = getFilterQuery()
             viewModel.more(query)
+        }
+    }
+
+    fun changeFavorite(programId: Int, isFavorite: Boolean) {
+        val userId = session.getUserId() ?: return
+        if (isFavorite) {
+            viewModel.changeAssociation(userId.toInt(), programId, "favorite", "add")
+        } else {
+            viewModel.changeAssociation(userId.toInt(), programId, "favorite", "remove")
+        }
+    }
+
+    fun changeSubscription(programId: Int, isSubscribed: Boolean) {
+        val userId = session.getUserId() ?: return
+        if (isSubscribed) {
+            viewModel.changeAssociation(userId.toInt(), programId, "subscription", "add")
+        } else {
+            viewModel.changeAssociation(userId.toInt(), programId, "subscription", "remove")
         }
     }
 

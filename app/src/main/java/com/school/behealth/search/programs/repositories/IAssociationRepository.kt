@@ -3,6 +3,7 @@ package com.school.behealth.search.programs.repositories
 import com.school.behealth.search.programs.dtos.AssociationCreateCommand
 import com.school.behealth.search.programs.dtos.AssociationCreateResponse
 import com.school.behealth.search.programs.dtos.AssociationGetAllResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -22,7 +23,7 @@ interface IAssociationRepository {
         @Path("userId") userId: Int,
         @Query("relationType") relationType: String,
         @Query("programId") programId: Int
-    )
+    ): Response<Unit>
 
     @GET("users/{userId}/associations/{relationType}")
     suspend fun getAllAssociations(
