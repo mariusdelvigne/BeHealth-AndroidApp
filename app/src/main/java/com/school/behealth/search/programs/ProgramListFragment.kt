@@ -4,22 +4,26 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.school.behealth.R
-import com.school.behealth.search.plans.PlanListFragment
 import com.school.behealth.search.programs.dtos.Program
+import android.view.LayoutInflater
 
 class ProgramListFragment : Fragment() {
     private val programs: ArrayList<Program> = arrayListOf()
-    private val programRecyclerViewAdapter = ProgramRecyclerViewAdapter(programs)
+    private lateinit var programRecyclerViewAdapter: ProgramRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_program_list, container, false)
+
+        val programManagerFragment = parentFragment as? ProgramManagerFragment
+        if (programManagerFragment != null) {
+            programRecyclerViewAdapter = ProgramRecyclerViewAdapter(programs, programManagerFragment)
+        }
 
         if (view is RecyclerView) {
             with(view) {
@@ -31,13 +35,14 @@ class ProgramListFragment : Fragment() {
         return view
     }
 
-    fun initUIWithTodoList(programs: List<Program>) {
+    fun initUIWithProgramList(programs: List<Program>) {
         this.programs.clear()
         programs.forEach { this.programs.add(it) }
         programRecyclerViewAdapter.notifyDataSetChanged()
     }
 
     companion object {
-        fun newInstance() = PlanListFragment()
+        fun newInstance() = ProgramListFragment()
     }
 }
+

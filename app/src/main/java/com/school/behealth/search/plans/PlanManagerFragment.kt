@@ -33,7 +33,7 @@ class PlanManagerFragment : Fragment() {
             .findFragmentById(R.id.fragmentContainerView_planFragmentManager_planListFragment) as PlanListFragment
 
         viewModel.mutablePlanLiveData.observe(viewLifecycleOwner) {
-            planListFragment.initUIWithTodoList(it)
+            planListFragment.initUIWithPlanList(it)
         }
 
         val query = PlanFilterQuery(

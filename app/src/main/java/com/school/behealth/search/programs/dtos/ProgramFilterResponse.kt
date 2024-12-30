@@ -15,4 +15,6 @@ data class Program(
     val sleepPlanId: Int?,
     val foodPlanId: Int?,
     val sportPlanId: Int?,
+    var isFavorite: Boolean = false,
+    var isSubscribed: Boolean = false
 )
