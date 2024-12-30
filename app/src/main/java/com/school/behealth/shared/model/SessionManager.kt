@@ -31,7 +31,7 @@ class SessionManager(
     fun getUsername(): String? = sharedPref.getString("username", null)
     fun getPassword(): String? = sharedPref.getString("password", null)
     fun getRole(): String? = sharedPref.getString("role", null)
-    fun getUserId(): String? = sharedPref.getString("userId", null)
+    fun getUserId(): Int? = sharedPref.getString("userId", null)?.toIntOrNull()
 
     fun registerPref(data: SessionDataResponse, password: String) {
         sharedPref.edit().apply {

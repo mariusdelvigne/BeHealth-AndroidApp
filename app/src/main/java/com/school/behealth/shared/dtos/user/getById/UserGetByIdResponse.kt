@@ -7,7 +7,7 @@ data class UserGetByIdResponse (
     val username: String,
     val mail: String,
     val role: String,
-    val birthDate: Date,
+    val birthDate: String,
     val gender: String,
     val name: String,
     val surname: String,

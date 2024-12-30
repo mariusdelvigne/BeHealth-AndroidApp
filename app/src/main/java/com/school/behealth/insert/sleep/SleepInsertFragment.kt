@@ -68,7 +68,7 @@ class SleepInsertFragment : Fragment() {
             val startDateTimeFormatted = isoDateFormat.format(startDateTime.time)
             val endDateTimeFormatted = isoDateFormat.format(endDateTime.time)
 
-            val userId = session.getUserId()?.toIntOrNull()
+            val userId = session.getUserId()
 
             if (userId != null && startDateTimeFormatted.isNotEmpty() && startDateTimeFormatted.isNotEmpty()) {
                 val command = CreateUserSleepCommand(

@@ -60,7 +60,7 @@ class PeriodInsertFragment : Fragment() {
         binding.btnFragmentPeriodInsertInsertPeriod.setOnClickListener {
             val startDate = binding.etFragmentPeriodInsertStartDate.text.toString()
             val endDate = binding.etFragmentPeriodInsertEndDate.text.toString()
-            val userId = session.getUserId()?.toIntOrNull()
+            val userId = session.getUserId()
 
             if (userId != null && startDate.isNotEmpty() && endDate.isNotEmpty()) {
                 val command = CreateUserPeriodCommand(
