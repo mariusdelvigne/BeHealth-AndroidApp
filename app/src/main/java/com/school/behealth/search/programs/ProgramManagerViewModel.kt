@@ -48,20 +48,30 @@ class ProgramManagerViewModel : ViewModel() {
 
     fun getAllAssociations(relationType: String, userId: Int) {
         viewModelScope.launch {
-            val response = associationRepository.getAllAssociations(
-                userId,
-                relationType,
-                currentPage,
-                pageSize
-            )
+            var page = 0
+            val accumulatedData = mutableListOf<Association>()
 
+            while (page <= currentPage) {
+                val response = associationRepository.getAllAssociations(
+                    userId,
+                    relationType,
+                    page,
+                    pageSize
+                )
+
+                accumulatedData.addAll(response.astHealthProgramUsers)
+                page++
+            }
+
+            // Post accumulated data after the loop
             if (relationType == "favorite") {
-                mutableFavoritesLiveData.postValue(response.astHealthProgramUsers)
+                mutableFavoritesLiveData.postValue(accumulatedData)
             } else if (relationType == "subscription") {
-                mutableSubscriptionsLiveData.postValue(response.astHealthProgramUsers)
+                mutableSubscriptionsLiveData.postValue(accumulatedData)
             }
         }
     }
+
 
     fun changeAssociation(userId: Int, programId: Int, relationType: String, action: String) {
         viewModelScope.launch {
@@ -89,7 +99,6 @@ class ProgramManagerViewModel : ViewModel() {
             }
         }
     }
-
 
     fun syncFavoritesWithPrograms() {
         val favoriteAssociations = mutableFavoritesLiveData.value.orEmpty()

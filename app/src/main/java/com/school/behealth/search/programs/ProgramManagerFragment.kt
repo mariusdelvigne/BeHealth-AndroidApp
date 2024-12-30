@@ -76,6 +76,12 @@ class ProgramManagerFragment : Fragment() {
         binding.btnProgramFragmentManagerMore.setOnClickListener {
             val query = getFilterQuery()
             viewModel.more(query)
+
+            val userId = session.getUserId()
+            if (userId != null) {
+                viewModel.getAllAssociations("favorite", userId.toInt())
+                viewModel.getAllAssociations("subscription", userId.toInt())
+            }
         }
     }
 
