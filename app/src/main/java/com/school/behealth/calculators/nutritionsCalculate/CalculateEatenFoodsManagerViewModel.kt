@@ -4,20 +4,20 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.school.behealth.calculators.nutritionsCalculate.dtos.EatenFoodsCalculatorCommand
-import com.school.behealth.calculators.nutritionsCalculate.dtos.EatenFoodsCalculatorResponse
-import com.school.behealth.calculators.nutritionsCalculate.repositories.IEatenCaloriesRepository
+import com.school.behealth.shared.dtos.foodApiCall.CreateFoodApiCallCommand
+import com.school.behealth.shared.dtos.foodApiCall.CreateFoodApiCallResponse
+import com.school.behealth.shared.repositories.IFoodApiCallRepository
 import com.school.behealth.utils.RetrofitFactory
 import kotlinx.coroutines.launch
 
 class CalculateEatenFoodsManagerViewModel : ViewModel() {
-    val mutableLiveCaloriesFoodEatenData: MutableLiveData<EatenFoodsCalculatorResponse> = MutableLiveData()
-    private val eatenFoodsCaloriesRepository = RetrofitFactory.instance.create(IEatenCaloriesRepository::class.java)
+    val mutableLiveCaloriesFoodEatenData: MutableLiveData<CreateFoodApiCallResponse> = MutableLiveData()
+    private val eatenFoodsCaloriesRepository = RetrofitFactory.instance.create(IFoodApiCallRepository::class.java)
 
-    fun calculateEatenFoodsCalories(command: EatenFoodsCalculatorCommand){
+    fun calculateEatenFoodsCalories(command: CreateFoodApiCallCommand){
         viewModelScope.launch {
             try {
-                val response = eatenFoodsCaloriesRepository.calculateCaloriesEaten(command)
+                val response = eatenFoodsCaloriesRepository.foodCalculatorCall(command)
                 mutableLiveCaloriesFoodEatenData.postValue(response)
             } catch (e: Exception) {
                 Log.e("CalculateBmiManager", "Error calculating BMI", e)

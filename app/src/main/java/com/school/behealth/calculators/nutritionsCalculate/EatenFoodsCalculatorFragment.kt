@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.school.behealth.calculators.nutritionsCalculate.dtos.EatenFoodsCalculatorCommand
+import com.bumptech.glide.Glide
+import com.school.behealth.R
 import com.school.behealth.databinding.FragmentEatensFoodsCalculatorBinding
+import com.school.behealth.shared.dtos.foodApiCall.CreateFoodApiCallCommand
 
 class EatenFoodsCalculatorFragment : Fragment() {
     private lateinit var binding: FragmentEatensFoodsCalculatorBinding
@@ -33,7 +36,7 @@ class EatenFoodsCalculatorFragment : Fragment() {
             val nameFood = binding.etFragmentEatenFoodsCalculatorFoodsNames.text.toString()
             val quantity = binding.etFragmentEatenFoodsCalculatorWeight.text.toString().toInt()
 
-            val command = EatenFoodsCalculatorCommand(nameFood, quantity)
+            val command = CreateFoodApiCallCommand(nameFood, quantity)
             viewModel.calculateEatenFoodsCalories(command)
 
             viewModel.mutableLiveCaloriesFoodEatenData.observe(viewLifecycleOwner) { response ->
@@ -60,6 +63,7 @@ class EatenFoodsCalculatorFragment : Fragment() {
                     response.proteins.toString() + "gr"
                 binding.tvFragmentEatenFoodsCalculatorPotassiumResult.text =
                     response.potassium.toString() + "gr"
+
             }
         }
     }
