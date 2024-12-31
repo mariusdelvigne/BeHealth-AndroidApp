@@ -3,7 +3,6 @@ package com.school.behealth.settings
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import com.school.behealth.R
 import com.school.behealth.databinding.FragmentSettingsBinding
 import com.school.behealth.shared.dtos.session.SessionDataResponse
 import com.school.behealth.shared.dtos.user.update.UpdateUserCommand
+import com.school.behealth.shared.dtos.user.updatePassword.UpdatePasswordCommand
 import com.school.behealth.shared.model.SessionManager
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -43,8 +43,9 @@ class SettingsFragment : Fragment() {
 
     private fun userIsConnected() {
         session.isConnectedLiveData.observe(viewLifecycleOwner) { response ->
-            if(response) {
-                binding.linearLayoutFragmentSettingsModifyInformationLayout.visibility = View.VISIBLE
+            if (response) {
+                binding.linearLayoutFragmentSettingsModifyInformationLayout.visibility =
+                    View.VISIBLE
                 setDataConnection()
                 observableViewModels()
                 seOnClickListener()
@@ -56,7 +57,8 @@ class SettingsFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun printUserInformationNotConnected() {
-        binding.tvInsertFragmentTitleModify.text = "You are not connected to the app, please connect you access at this part"
+        binding.tvInsertFragmentTitleModify.text =
+            "You are not connected to the app, please connect you access at this part"
         binding.linearLayoutFragmentSettingsModifyInformationLayout.visibility = View.GONE
     }
 
@@ -93,10 +95,81 @@ class SettingsFragment : Fragment() {
         binding.btnFragmentSettingsModifyUserInfo.setOnClickListener {
             showModifyUserInfoDialog()
         }
+
+        binding.btnFragmentSettingsModifyUserPassword.setOnClickListener {
+            showModifyUserPasswordDialog()
+        }
+    }
+
+    private fun showModifyUserPasswordDialog() {
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_user_update_password, null)
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+
+        val etCurrentPassword =
+            dialogView.findViewById<EditText>(R.id.et_modifyPassword_currentPassword)
+        val etNewPassword = dialogView.findViewById<EditText>(R.id.et_modifyPassword_newPassword)
+        val etConfirmNewPassword = dialogView.findViewById<EditText>(R.id.et_modifyPassword_confirmNewPassword)
+        val btnSaveChanges = dialogView.findViewById<Button>(R.id.btn_modifyPassword_saveChanges)
+        val btnCancelChanges =
+            dialogView.findViewById<Button>(R.id.btn_modifyPassword_cancelChanges)
+
+        val userId: Int? = session.getUserId()
+
+        if (userId == null) {
+            alertDialog.dismiss()
+        } else {
+            btnSaveChanges.setOnClickListener {
+
+                if (etNewPassword.text.toString() != etConfirmNewPassword.text.toString()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "The new password and the confirm password are not the same",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return@setOnClickListener
+                }
+
+                val command = UpdatePasswordCommand(
+                    currentPassword = etCurrentPassword.text.toString(),
+                    newPassword = etNewPassword.text.toString()
+                )
+
+                viewModel.updateUserPassword(userId, command)
+                viewModel.mutableLiveUserPasswordErrorData.observe(viewLifecycleOwner) { response ->
+                    Toast.makeText(requireContext(), response, Toast.LENGTH_LONG).show()
+                }
+
+                val username = session.getUsername()!!
+                val role = session.getRole()!!
+                val tokenExpirationDate = java.util.Date()
+
+                val sessionCommand = SessionDataResponse(
+                    id = userId,
+                    username = username,
+                    role = role,
+                    tokenExpirationDateTime = tokenExpirationDate
+                )
+
+                session.registerPref(sessionCommand, etNewPassword.text.toString())
+
+                alertDialog.dismiss()
+            }
+        }
+
+        btnCancelChanges.setOnClickListener {
+            alertDialog.dismiss()
+        }
     }
 
     private fun showModifyUserInfoDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_user_update, null)
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_user_update_information, null)
         val dialogBuilder = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setCancelable(true)
@@ -143,6 +216,9 @@ class SettingsFragment : Fragment() {
                     gender = spModifyGender.selectedItem.toString()
                 )
                 viewModel.updateUserInformation(userId, command)
+                viewModel.mutableLiveResponseUserInformationData.observe(viewLifecycleOwner) { response ->
+                    Toast.makeText(requireContext(), response, Toast.LENGTH_LONG).show()
+                }
 
                 val role = session.getRole()!!
                 val tokenExpirationDate = java.util.Date()
@@ -156,7 +232,7 @@ class SettingsFragment : Fragment() {
                 )
 
                 session.registerPref(sessionCommand, password)
-                Toast.makeText(requireContext(), "User information has been updated", Toast.LENGTH_LONG).show()
+
                 alertDialog.dismiss()
                 viewModel.getUserInformation(userId)
             }

@@ -4,6 +4,7 @@ import com.school.behealth.shared.dtos.user.create.UserCreateCommand
 import com.school.behealth.shared.dtos.user.create.UserCreateResponse
 import com.school.behealth.shared.dtos.user.getById.UserGetByIdResponse
 import com.school.behealth.shared.dtos.user.update.UpdateUserCommand
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -18,5 +19,5 @@ interface IUserRepository {
     suspend fun getUserById(@Path("userId") userId: Int): UserGetByIdResponse
 
     @PUT("users/{userId}")
-    suspend fun updateUserInformation(@Path("userId") userId: Int, @Body command: UpdateUserCommand)
+    suspend fun updateUserInformation(@Path("userId") userId: Int, @Body command: UpdateUserCommand): Response<Unit>
 }
