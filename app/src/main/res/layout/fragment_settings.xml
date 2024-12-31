@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +8,7 @@
     tools:context=".settings.SettingsFragment">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_fragmentSettings_modifyInformation"
         android:layout_width="match_parent"
         android:layout_height="460dp"
         android:layout_margin="30dp"
@@ -39,10 +41,11 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@id/tv_insertFragment_title" />
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/linearLayout_fragmentSettings_modifyInformationLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

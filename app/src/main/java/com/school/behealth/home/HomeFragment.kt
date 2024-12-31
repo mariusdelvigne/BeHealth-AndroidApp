@@ -25,9 +25,8 @@ class HomeFragment : Fragment() {
         session = SessionManager(requireContext())
 
         connection()
-        session.printToken()
-
         setOnClickListeners()
+
         return binding.root
     }
 

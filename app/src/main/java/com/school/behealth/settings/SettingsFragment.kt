@@ -1,7 +1,9 @@
 package com.school.behealth.settings
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,11 +35,29 @@ class SettingsFragment : Fragment() {
         viewModel = ViewModelProvider(this)[SettingsUserManagerViewModel::class.java]
         session = SessionManager(requireContext())
 
-        setDataConnection()
+        session.verifyConnection()
+        userIsConnected()
 
-        observableViewModels()
-        seOnClickListener()
         return binding.root
+    }
+
+    private fun userIsConnected() {
+        session.isConnectedLiveData.observe(viewLifecycleOwner) { response ->
+            if(response) {
+                binding.linearLayoutFragmentSettingsModifyInformationLayout.visibility = View.VISIBLE
+                setDataConnection()
+                observableViewModels()
+                seOnClickListener()
+            } else {
+                printUserInformationNotConnected()
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun printUserInformationNotConnected() {
+        binding.tvInsertFragmentTitleModify.text = "You are not connected to the app, please connect you access at this part"
+        binding.linearLayoutFragmentSettingsModifyInformationLayout.visibility = View.GONE
     }
 
     private fun observableViewModels() {
@@ -74,69 +94,6 @@ class SettingsFragment : Fragment() {
             showModifyUserInfoDialog()
         }
     }
-
-//    private fun showModifyUserInfoDialog() {
-//        val dialogView =
-//            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_user_update, null)
-//        val dialogBuilder = AlertDialog.Builder(requireContext())
-//            .setView(dialogView)
-//            .setCancelable(true)
-//
-//        val alertDialog = dialogBuilder.create()
-//        alertDialog.show()
-//
-//        val etModifyUsername = dialogView.findViewById<EditText>(R.id.et_modifyUsername)
-//        val etModifyMail = dialogView.findViewById<EditText>(R.id.et_modifyMail)
-//        val etModifyName = dialogView.findViewById<EditText>(R.id.et_modifyName)
-//        val etModifySurname = dialogView.findViewById<EditText>(R.id.et_modifySurname)
-//        val etModifyBirthdate = dialogView.findViewById<EditText>(R.id.et_modifyBirthdate)
-//        val spModifyGender = dialogView.findViewById<Spinner>(R.id.sp_modifyGender)
-//        val btnSaveChanges = dialogView.findViewById<Button>(R.id.btn_saveChanges)
-//        val btnCancelChanges = dialogView.findViewById<Button>(R.id.btn_cancelChanges)
-//
-//        etModifyUsername.setText(binding.etFragmentSettingsInputUsername.text)
-//        etModifyMail.setText(binding.etFragmentSettingsInputMail.text)
-//        etModifyName.setText(binding.etFragmentSettingsInputName.text)
-//        etModifySurname.setText(binding.etFragmentSettingsInputSurname.text)
-//        etModifyBirthdate.setText(binding.tvFragmentSettingsInputBirthDate.text)
-//
-//        val genderAdapter = ArrayAdapter.createFromResource(
-//            requireContext(),
-//            R.array.gender_array,
-//            android.R.layout.simple_spinner_item
-//        )
-//        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spModifyGender.adapter = genderAdapter
-//        spModifyGender.setSelection(genderAdapter.getPosition(binding.spFragmentSettingsInputGender.text.toString()))
-//
-//
-//        val userId: Int? = session.getUserId()
-//
-//        if (userId == null)
-//            alertDialog.dismiss()
-//        else
-//            btnSaveChanges.setOnClickListener {
-//                val command = UpdateUserCommand(
-//                    username = etModifyUsername.toString(),
-//                    mail = etModifyMail.toString(),
-//                    name = etModifyName.toString(),
-//                    surname = etModifySurname.toString(),
-//                    birthDate = etModifyBirthdate.toString(),
-//                    gender = spModifyGender.toString()
-//                )
-//                viewModel.updateUserInformation(userId, command)
-//                Toast.makeText(
-//                    requireContext(),
-//                    "User information has been updated",
-//                    Toast.LENGTH_LONG
-//                ).show()
-//                alertDialog.dismiss()
-//            }
-//
-//        btnCancelChanges.setOnClickListener {
-//            alertDialog.dismiss()
-//        }
-//    }
 
     private fun showModifyUserInfoDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_user_update, null)
