@@ -25,18 +25,18 @@ class SearchFragment : Fragment() {
 
     private fun setOnClickListeners() {
         binding.btnSearchFragmentGoToPlans.setOnClickListener {
-            replaceFragment(PlanManagerFragment())
+            replaceFragment(PlanManagerFragment(), "planSearchFragment")
         }
 
         binding.btnSearchFragmentGoToPrograms.setOnClickListener {
-            replaceFragment(ProgramManagerFragment())
+            replaceFragment(ProgramManagerFragment(), "programSearchFragment")
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment, tag: String) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
         fragmentTransaction
-            .replace(R.id.frameLayout_mainActivity, fragment, "searchFragment")
+            .replace(R.id.frameLayout_mainActivity, fragment, tag)
             .addToBackStack(null)
             .commit()
     }

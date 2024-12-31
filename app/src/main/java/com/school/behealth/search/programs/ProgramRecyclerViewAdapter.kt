@@ -72,7 +72,7 @@ class ProgramRecyclerViewAdapter(
             dialog.dismiss()
 
             val fragmentManager = fragment.requireActivity().supportFragmentManager
-            val currentFragment = fragmentManager.findFragmentByTag("searchFragment")
+            val currentFragment = fragmentManager.findFragmentByTag("programSearchFragment")
             if (currentFragment != null) {
                 val transaction = fragmentManager.beginTransaction()
                 transaction.remove(currentFragment)
