@@ -2,14 +2,17 @@ package com.school.behealth.search.programs
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentProgramItemBinding
+import com.school.behealth.search.programs.detailsProgramsFragment.DetailsProgramsFragment
 import com.school.behealth.search.programs.dtos.Program
 
 class ProgramRecyclerViewAdapter(
@@ -44,6 +47,7 @@ class ProgramRecyclerViewAdapter(
     private fun showProgramActionDialog(context: Context, program: Program) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_program_relations, null)
 
+        val btnShowProgramDetails: Button = dialogView.findViewById(R.id.btn_showProgramsDetails)
         val btnToggleFavorite: Button = dialogView.findViewById(R.id.btn_toggleFavorite)
         val btnToggleSubscription: Button = dialogView.findViewById(R.id.btn_toggleSubscription)
         val btnCancel: Button = dialogView.findViewById(R.id.btn_cancel)
@@ -63,6 +67,20 @@ class ProgramRecyclerViewAdapter(
         val dialog = AlertDialog.Builder(context)
             .setView(dialogView)
             .create()
+
+        btnShowProgramDetails.setOnClickListener {
+            dialog.dismiss()
+
+            val fragmentManager = fragment.requireActivity().supportFragmentManager
+            val currentFragment = fragmentManager.findFragmentByTag("searchFragment")
+            if (currentFragment != null) {
+                val transaction = fragmentManager.beginTransaction()
+                transaction.remove(currentFragment)
+                transaction.commit()
+            } else {
+                Log.i("currentFrag", "Fragment not found!")
+            }
+        }
 
         btnToggleFavorite.setOnClickListener {
             val userId = fragment.session.getUserId() ?: return@setOnClickListener
