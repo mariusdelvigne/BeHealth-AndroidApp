@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Modify User Information"
-        android:textSize="20sp"
+        android:textColor="@color/ocean_blue"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:paddingBottom="16dp" />
@@ -65,7 +67,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save Changes"
-        android:padding="8dp"
+        android:padding="16dp"
+        android:textSize="18sp"
+        app:cornerRadius="10dp"
         android:layout_marginTop="16dp" />
 
     <Button
@@ -73,7 +77,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:padding="8dp"
+        android:padding="16dp"
+        android:textSize="18sp"
+        app:cornerRadius="10dp"
         android:layout_marginTop="16dp"  />
 
 </LinearLayout>
