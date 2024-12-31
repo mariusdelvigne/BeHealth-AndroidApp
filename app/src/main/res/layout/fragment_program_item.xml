@@ -22,7 +22,6 @@
             android:divider="?android:attr/dividerHorizontal"
             android:showDividers="middle">
 
-
             <TextView
                 android:id="@+id/tv_fragmentProgramItem_title"
                 android:layout_width="0dp"
