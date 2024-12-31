@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_fragmentSettings_modifyInformation"
         android:layout_width="match_parent"
-        android:layout_height="460dp"
+        android:layout_height="610dp"
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Settings"
+                android:textColor="@color/ocean_blue"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -36,12 +37,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:text="User Information"
-                android:textSize="24sp"
+                android:textColor="@color/ocean_blue"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@id/tv_insertFragment_title" />
 
             <LinearLayout
@@ -57,6 +59,8 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:stretchColumns="1">
 
                     <TableRow
@@ -70,7 +74,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Username:" />
+                            android:text="Username:"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/et_fragmentSettings_inputUsername"
@@ -93,7 +99,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Mail:" />
+                            android:text="Mail:"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"/>
 
                         <TextView
                             android:id="@+id/et_fragmentSettings_inputMail"
@@ -113,10 +121,12 @@
 
                         <TextView
                             android:id="@+id/tv_fragmentSettings_titleName"
-                            android:layout_width="wrap_content"
+                            android:layout_width="123dp"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Name:" />
+                            android:text="Name:"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/et_fragmentSettings_inputName"
@@ -126,13 +136,22 @@
                             android:hint="Enter name"
                             android:inputType="text"
                             android:padding="8dp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
 
                         <TextView
                             android:id="@+id/tv_fragmentSettings_titleSurname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Surname:" />
+                            android:text="Surname:"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"/>
 
                         <TextView
                             android:id="@+id/et_fragmentSettings_inputSurname"
@@ -152,10 +171,12 @@
 
                         <TextView
                             android:id="@+id/tv_fragmentSettings_titleBirthdate"
-                            android:layout_width="wrap_content"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Birthdate:" />
+                            android:text="Birthdate:"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/tv_fragmentSettings_inputBirthDate"
@@ -164,13 +185,22 @@
                             android:layout_weight="1"
                             android:hint="dd-MM-yyyy"
                             android:padding="8dp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
 
                         <TextView
                             android:id="@+id/tv_fragmentSettings_titleGender"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:text="Gender:" />
+                            android:text="Gender:"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"/>
 
                         <TextView
                             android:id="@+id/sp_fragmentSettings_inputGender"
@@ -190,17 +220,22 @@
                             android:id="@+id/btn_fragmentSettings_modifyUserPassword"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="18dp"
                             android:layout_weight="1"
-                            android:padding="8dp"
-                            android:text="Change Password" />
+                            android:text="Change Password"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:cornerRadius="10dp" />
 
                         <Button
                             android:id="@+id/btn_fragmentSettings_modifyUserInfo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="8dp"
-                            android:text="Modify Information" />
+                            android:text="Modify Information"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:cornerRadius="10dp" />
                     </TableRow>
 
                     <TableRow
@@ -215,8 +250,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:padding="8dp"
-                            android:text="Disconnect" />
+                            android:text="Disconnect"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:cornerRadius="10dp" />
                     </TableRow>
 
                 </TableLayout>

@@ -7,32 +7,41 @@
     android:layout_height="match_parent"
     tools:context=".calculators.caloriesBurnedCalculator.CaloriesBurnedCalculatorFragment">
 
-    <TextView
-        android:id="@+id/tv_fragmentCaloriesBurned_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Calcul the calories burned"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <TableLayout
         android:id="@+id/tl_fragmentCaloriesBurnedCalculator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentCaloriesBurned_title">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_fragmentCaloriesBurned_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Calcul the calories burned"
+                android:textColor="@color/ocean_blue"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -40,7 +49,10 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_sport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sport : " />
+                android:layout_gravity="center"
+                android:text="Sport : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/sp_fragmentCaloriesBurnedCalculator_sportSelected"
@@ -50,7 +62,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -58,7 +70,10 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender : " />
+                android:layout_gravity="center"
+                android:text="Gender : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/sp_fragmentCaloriesBurnedCalculator_genderSelected"
@@ -68,7 +83,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -76,7 +91,10 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Age : " />
+                android:layout_gravity="center"
+                android:text="Age : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_age"
@@ -88,7 +106,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -96,7 +114,10 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time (min) : " />
+                android:layout_gravity="center"
+                android:text="Time (min) : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_time"
@@ -109,7 +130,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -117,7 +138,10 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height (cm) : " />
+                android:layout_gravity="center"
+                android:text="Height (cm) : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_height"
@@ -129,7 +153,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -137,7 +161,10 @@
                 android:id="@+id/tv_fragmentCaloriesBurnedCalculator_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weight (kg) : " />
+                android:layout_gravity="center"
+                android:text="Weight (kg) : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_weight"
@@ -149,15 +176,20 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:gravity="center" >
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="18sp">
 
             <Button
                 android:id="@+id/btn_fragmentCaloriesBurnedCalculator_calculateCaloriesBurned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calcul" />
+                android:padding="16dp"
+                android:text="Calcul"
+                android:textSize="18sp"
+                app:cornerRadius="10dp" />
         </TableRow>
     </TableLayout>
 
