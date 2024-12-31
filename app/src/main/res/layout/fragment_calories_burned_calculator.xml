@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="@android:color/white"
         android:elevation="4dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Sport : " />
+                android:text="Sport : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/sp_fragmentCaloriesBurnedCalculator_sportSelected"
@@ -69,7 +71,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Gender : " />
+                android:text="Gender : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/sp_fragmentCaloriesBurnedCalculator_genderSelected"
@@ -88,7 +92,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Age : " />
+                android:text="Age : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_age"
@@ -109,7 +115,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Time (min) : " />
+                android:text="Time (min) : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_time"
@@ -131,7 +139,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Height (cm) : " />
+                android:text="Height (cm) : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_height"
@@ -152,7 +162,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Weight (kg) : " />
+                android:text="Weight (kg) : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentCaloriesBurnedCalculator_weight"
@@ -166,16 +178,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:gravity="center" >
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="18sp">
 
             <Button
                 android:id="@+id/btn_fragmentCaloriesBurnedCalculator_calculateCaloriesBurned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calcul"
                 android:padding="16dp"
+                android:text="Calcul"
                 android:textSize="18sp"
-                app:cornerRadius="10dp"/>
+                app:cornerRadius="10dp" />
         </TableRow>
     </TableLayout>
 
