@@ -7,66 +7,86 @@
     android:layout_height="match_parent"
     tools:context=".calculators.nutritionsCalculate.EatenFoodsCalculatorFragment">
 
-    <TextView
-        android:id="@+id/tv_fragmentEatenFoodsCalculator_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Calculate the calories"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TableLayout
-        android:id="@+id/tl_fragmentEatenFoodsCalculator"
+    <FrameLayout
+        android:id="@+id/frameLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:background="@android:color/white"
+        android:elevation="6dp"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_fragmentEatenFoodsCalculator_title">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_fragmentEatenFoodsCalculator_foodsNames"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Name food"
-                android:inputType="text"
-                android:padding="8dp" />
-
-            <EditText
-                android:id="@+id/et_fragmentEatenFoodsCalculator_weight"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Quantity (grams)"
-                android:inputType="numberSigned"
-                android:padding="8dp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/btn_fragmentEatenFoodsCalculator_calculateCaloriesEat"
+            <TextView
+                android:id="@+id/tv_fragmentEatenFoodsCalculator_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calculate" />
-        </TableRow>
+                android:layout_gravity="center"
+                android:text="Calculate the calories"
+                android:textColor="@color/ocean_blue"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-    </TableLayout>
+            <TableLayout
+                android:id="@+id/tl_fragmentEatenFoodsCalculator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/et_fragmentEatenFoodsCalculator_foodsNames"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Name food"
+                        android:inputType="text"
+                        android:padding="8dp" />
+
+                    <EditText
+                        android:id="@+id/et_fragmentEatenFoodsCalculator_weight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Quantity (grams)"
+                        android:inputType="numberSigned"
+                        android:padding="8dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btn_fragmentEatenFoodsCalculator_calculateCaloriesEat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:text="Calculate"
+                        android:textSize="18sp"
+                        app:cornerRadius="10dp" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="0dp"
@@ -76,7 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tl_fragmentEatenFoodsCalculator">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout5">
 
         <LinearLayout
             android:layout_width="match_parent"
