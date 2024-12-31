@@ -11,9 +11,11 @@
         android:id="@+id/tv_insertFragment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="228dp"
         android:text="Insert some data"
+        android:textColor="@color/ocean_blue"
         android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,15 +23,11 @@
     <TableLayout
         android:id="@+id/tl_fragmentInsert_btnInsert"
         app:layout_constraintTop_toBottomOf="@+id/tv_insertFragment_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.63">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -40,18 +38,29 @@
                 android:id="@+id/btn_fragmentInsert_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textSize="18sp"
+                app:cornerRadius="10dp"
+                android:layout_marginEnd="18dp"
                 android:text="Height" />
 
             <Button
                 android:id="@+id/btn_fragmentInsert_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textSize="18sp"
+                app:cornerRadius="10dp"
+                android:layout_marginEnd="18dp"
                 android:text="Weight" />
 
             <Button
                 android:id="@+id/btn_fragmentInsert_periods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textSize="18sp"
+                app:cornerRadius="10dp"
                 android:text="Periods" />
 
         </TableRow>
@@ -65,18 +74,29 @@
                 android:id="@+id/btn_fragmentInsert_foods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textSize="18sp"
+                app:cornerRadius="10dp"
+                android:layout_marginEnd="18dp"
                 android:text="Foods" />
 
             <Button
                 android:id="@+id/btn_fragmentInsert_sleeps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textSize="18sp"
+                app:cornerRadius="10dp"
+                android:layout_marginEnd="18dp"
                 android:text="Sleep" />
 
             <Button
                 android:id="@+id/btn_fragmentInsert_sport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textSize="18sp"
+                app:cornerRadius="10dp"
                 android:text="Sport" />
         </TableRow>
 
