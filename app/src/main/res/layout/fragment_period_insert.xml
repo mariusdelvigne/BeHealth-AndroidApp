@@ -27,7 +27,9 @@
                 android:layout_marginTop="24dp"
                 android:text="Insert new period"
                 android:textAlignment="center"
-                android:textSize="36sp" />
+                android:textColor="@color/ocean_blue"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
             <TableRow
                 android:layout_width="match_parent"
@@ -43,6 +45,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text="Start date :"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
                 <EditText
@@ -70,6 +73,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text="End date :"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
                 <EditText

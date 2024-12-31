@@ -29,7 +29,9 @@
                 android:layout_marginTop="24dp"
                 android:text="Insert new food"
                 android:textAlignment="center"
-                android:textSize="36sp" />
+                android:textColor="@color/ocean_blue"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
             <TableRow
                 android:layout_width="match_parent"
@@ -45,6 +47,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text="Food name :"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
                 <EditText
@@ -73,6 +76,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="Quantity (g) :"
+                android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <EditText
@@ -101,6 +105,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text="Eaten date and time :"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
                 <TextView
