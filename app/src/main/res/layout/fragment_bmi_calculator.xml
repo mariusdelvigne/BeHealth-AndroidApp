@@ -7,32 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".calculators.bmiCalculator.BmiCalculatorFragment">
 
-    <TextView
-        android:id="@+id/tv_fragmentBmiCalculator_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Calcul your BMI"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TableLayout
         android:id="@+id/tl_fragmentBmiCalculator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fragmentBmiCalculator_title">
+        tools:layout_editor_absoluteY="180dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_fragmentBmiCalculator_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Calcul your BMI"
+                android:textColor="@color/ocean_blue"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -40,7 +48,10 @@
                 android:id="@+id/tv_fragmentBmiCalculator_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender : " />
+                android:layout_gravity="center"
+                android:text="Gender : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/sp_fragmentBmiCalculator_genderSelect"
@@ -51,7 +62,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -59,7 +70,10 @@
                 android:id="@+id/tv_fragmentBmiCalculator_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Age : " />
+                android:layout_gravity="center"
+                android:text="Age : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentBmiCalculator_age"
@@ -71,7 +85,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -79,7 +93,10 @@
                 android:id="@+id/tv_fragmentBmiCalculator_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weight (kg) : " />
+                android:layout_gravity="center"
+                android:text="Weight (kg) : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentBmiCalculator_weight"
@@ -92,7 +109,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -100,7 +117,10 @@
                 android:id="@+id/tv_fragmentBmiCalculator_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height (cm) : " />
+                android:layout_gravity="center"
+                android:text="Height (cm) : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_fragmentBmiCalculator_height"
@@ -112,7 +132,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
@@ -120,10 +140,11 @@
                 android:id="@+id/btn_fragmentBmiCalculator_calculateBmi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calcul" />
+                android:padding="16dp"
+                android:text="Calcul"
+                android:textSize="18sp"
+                app:cornerRadius="10dp" />
         </TableRow>
-
-
     </TableLayout>
 
     <TextView
