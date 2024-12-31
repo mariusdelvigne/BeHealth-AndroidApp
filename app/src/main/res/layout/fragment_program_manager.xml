@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,71 +6,95 @@
     android:layout_height="match_parent"
     tools:context=".search.plans.PlanManagerFragment">
 
-
-    <TextView
-        android:id="@+id/tv_programFragmentManager_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:text="Search programs"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TableLayout
         android:id="@+id/tl_programFragmentManager"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_programFragmentManager_title">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/tv_programFragmentManager_titleProgram"
+                android:id="@+id/tv_programFragmentManager_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Title : " />
-
-            <EditText
-                android:id="@+id/et_programFragmentManager_titleProgram"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Title"
-                android:inputType="text"
-                android:minHeight="48dp"
-                android:paddingVertical="12dp" />
-
+                android:layout_gravity="center"
+                android:text="Search programs"
+                android:textColor="@color/ocean_blue"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_programFragmentManager_titleProgram"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:paddingEnd="8dp"
+                android:text="Title : "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_programFragmentManager_titleProgram"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/ocean_blue"
+                android:hint="Title"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingVertical="12dp"
+                android:paddingStart="16dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center">
 
             <Button
                 android:id="@+id/btn_programFragmentManager_filter"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Filter" />
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/ocean_blue"
+                android:padding="16dp"
+                android:text="Filter"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:cornerRadius="10dp"
+                android:layout_width="match_parent" />
         </TableRow>
 
     </TableLayout>
 
     <ScrollView
         android:id="@+id/sv_programFragmentManager_programList"
-        android:layout_width="417dp"
+        android:layout_width="match_parent"
         android:layout_height="402dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_programFragmentManager_more"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,10 +113,16 @@
         android:id="@+id/btn_programFragmentManager_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:padding="16dp"
         android:text="More"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_programFragmentManager_programList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
