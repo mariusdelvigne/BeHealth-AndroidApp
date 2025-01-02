@@ -35,9 +35,10 @@ class ProgramListFragment : Fragment() {
         return view
     }
 
-    fun initUIWithProgramList(programs: List<Program>) {
+    fun initUIWithProgramList(programs: List<Program>, isUserLoggedIn: Boolean) {
         this.programs.clear()
         programs.forEach { this.programs.add(it) }
+        programRecyclerViewAdapter.setUserLoggedIn(isUserLoggedIn)
         programRecyclerViewAdapter.notifyDataSetChanged()
     }
 
