@@ -24,7 +24,7 @@ class ProgramManagerViewModel : ViewModel() {
     var currentPage = 0
     var pageSize = 10
 
-    fun getProgramsFiltered(query: ProgramFilterQuery, clearList: Boolean = false) {
+    fun getProgramsFiltered(query: ProgramFilterQuery, clearList: Boolean = false, userId: Int) {
         viewModelScope.launch {
             val response = programRepository.getProgramsFiltered(
                 query.title,
@@ -43,6 +43,8 @@ class ProgramManagerViewModel : ViewModel() {
                 currentList.addAll(response.programs)
                 mutableProgramLiveData.postValue(currentList)
             }
+
+            getAllAssociations("favorite", userId)
         }
     }
 
@@ -50,8 +52,9 @@ class ProgramManagerViewModel : ViewModel() {
         viewModelScope.launch {
             var page = 0
             val accumulatedData = mutableListOf<Association>()
+            var hasMoreData = true
 
-            while (page <= currentPage) {
+            while (hasMoreData) {
                 val response = associationRepository.getAllAssociations(
                     userId,
                     relationType,
@@ -59,8 +62,12 @@ class ProgramManagerViewModel : ViewModel() {
                     pageSize
                 )
 
-                accumulatedData.addAll(response.astHealthProgramUsers)
-                page++
+                if (response.astHealthProgramUsers.isNotEmpty()) {
+                    accumulatedData.addAll(response.astHealthProgramUsers)
+                    page++
+                } else {
+                    hasMoreData = false
+                }
             }
 
             // Post accumulated data after the loop
@@ -71,7 +78,6 @@ class ProgramManagerViewModel : ViewModel() {
             }
         }
     }
-
 
     fun changeAssociation(userId: Int, programId: Int, relationType: String, action: String) {
         viewModelScope.launch {
@@ -120,8 +126,8 @@ class ProgramManagerViewModel : ViewModel() {
         mutableProgramLiveData.postValue(programs)
     }
 
-    fun more(query: ProgramFilterQuery) {
+    fun more(query: ProgramFilterQuery, userId: Int) {
         currentPage++
-        getProgramsFiltered(query)
+        getProgramsFiltered(query, false, userId)
     }
 }

@@ -45,11 +45,11 @@ class ProgramManagerFragment : Fragment() {
             viewModel.syncSubscriptionsWithPrograms()
         }
 
-        val query = ProgramFilterQuery(privacy = "public")
-        viewModel.getProgramsFiltered(query)
-
         val userId = session.getUserId()
+        val query = ProgramFilterQuery(privacy = "public")
+
         if (userId != null) {
+            viewModel.getProgramsFiltered(query, false, userId)
             viewModel.getAllAssociations("favorite", userId.toInt())
             viewModel.getAllAssociations("subscription", userId.toInt())
         }
@@ -67,18 +67,18 @@ class ProgramManagerFragment : Fragment() {
     }
 
     private fun setUpListeners() {
+        val userId = session.getUserId()
         binding.btnProgramFragmentManagerFilter.setOnClickListener {
-            val query = getFilterQuery()
             viewModel.currentPage = 0
-            viewModel.getProgramsFiltered(query, true)
+
+            if (userId != null) {
+                viewModel.getProgramsFiltered(getFilterQuery(), true, userId.toInt())
+            }
         }
 
         binding.btnProgramFragmentManagerMore.setOnClickListener {
-            val query = getFilterQuery()
-            viewModel.more(query)
-
-            val userId = session.getUserId()
             if (userId != null) {
+                viewModel.more(getFilterQuery(), userId.toInt())
                 viewModel.getAllAssociations("favorite", userId.toInt())
                 viewModel.getAllAssociations("subscription", userId.toInt())
             }
