@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
@@ -17,6 +18,8 @@ class ProgramRecyclerViewAdapter(
     private val fragment: ProgramManagerFragment
 ) : RecyclerView.Adapter<ProgramRecyclerViewAdapter.ViewHolder>() {
 
+    private var isUserLoggedIn: Boolean = false
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = FragmentProgramItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -27,18 +30,31 @@ class ProgramRecyclerViewAdapter(
 
         holder.tvTitle.text = program.title
 
-        // Change the icons properly if favorite or not and subscribed or not
-        holder.ivFavorite.setImageResource(
-            if (program.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_star_empty
-        )
-        holder.ivSubscription.setImageResource(
-            if (program.isSubscribed) R.drawable.ic_subscription_active else R.drawable.ic_subscription_inactive
-        )
+        // Display/Undisplay fav/sub icons if connected or not
+        if (isUserLoggedIn) {
+            holder.ivFavorite.visibility = View.VISIBLE
+            holder.ivSubscription.visibility = View.VISIBLE
+            holder.ivFavorite.setImageResource(
+                if (program.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_star_empty
+            )
+            holder.ivSubscription.setImageResource(
+                if (program.isSubscribed) R.drawable.ic_subscription_active else R.drawable.ic_subscription_inactive
+            )
+        } else {
+            holder.ivFavorite.visibility = View.GONE
+            holder.ivSubscription.visibility = View.GONE
+        }
 
         holder.itemView.setOnLongClickListener {
-            showProgramActionDialog(holder.itemView.context, program)
+            if (isUserLoggedIn) {
+                showProgramActionDialog(holder.itemView.context, program)
+            }
             true
         }
+    }
+
+    fun setUserLoggedIn(isLoggedIn: Boolean) {
+        this.isUserLoggedIn = isLoggedIn
     }
 
     private fun showProgramActionDialog(context: Context, program: Program) {
@@ -48,17 +64,8 @@ class ProgramRecyclerViewAdapter(
         val btnToggleSubscription: Button = dialogView.findViewById(R.id.btn_toggleSubscription)
         val btnCancel: Button = dialogView.findViewById(R.id.btn_cancel)
 
-        if (program.isFavorite) {
-            btnToggleFavorite.text = "Remove from Favorites"
-        } else {
-            btnToggleFavorite.text = "Add to Favorites"
-        }
-
-        if (program.isSubscribed) {
-            btnToggleSubscription.text = "Unsubscribe"
-        } else {
-            btnToggleSubscription.text = "Subscribe"
-        }
+        btnToggleFavorite.text = if (program.isFavorite) "Remove from Favorites" else "Add to Favorites"
+        btnToggleSubscription.text = if (program.isSubscribed) "Unsubscribe" else "Subscribe"
 
         val dialog = AlertDialog.Builder(context)
             .setView(dialogView)
@@ -66,26 +73,13 @@ class ProgramRecyclerViewAdapter(
 
         btnToggleFavorite.setOnClickListener {
             val userId = fragment.session.getUserId() ?: return@setOnClickListener
-            if (program.isFavorite) {
-                // Remove favorite
-                fragment.changeFavorite(program.id, false)
-            } else {
-                // Add favorite
-                fragment.changeFavorite(program.id, true)
-            }
+            fragment.changeFavorite(program.id, !program.isFavorite)
             dialog.dismiss()
         }
 
         btnToggleSubscription.setOnClickListener {
             val userId = fragment.session.getUserId() ?: return@setOnClickListener
-
-            if (program.isSubscribed) {
-                // Unsubscribe
-                fragment.changeSubscription(program.id, false)
-            } else {
-                // Subscribe
-                fragment.changeSubscription(program.id, true)
-            }
+            fragment.changeSubscription(program.id, !program.isSubscribed)
             dialog.dismiss()
         }
 

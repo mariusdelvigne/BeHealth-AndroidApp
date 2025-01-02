@@ -44,7 +44,8 @@ class ProgramManagerViewModel : ViewModel() {
                 mutableProgramLiveData.postValue(currentList)
             }
 
-            getAllAssociations("favorite", userId)
+            if (userId != -1)
+                getAllAssociations("favorite", userId)
         }
     }
 

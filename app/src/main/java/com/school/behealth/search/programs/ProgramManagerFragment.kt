@@ -30,11 +30,13 @@ class ProgramManagerFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        val userId = session.getUserId()
+
         val programListFragment = childFragmentManager
             .findFragmentById(R.id.fragmentContainerView_programFragmentManager_programListFragment) as ProgramListFragment
 
         viewModel.mutableProgramLiveData.observe(viewLifecycleOwner) { programs ->
-            programListFragment.initUIWithProgramList(programs)
+            programListFragment.initUIWithProgramList(programs, userId != null)
         }
 
         viewModel.mutableFavoritesLiveData.observe(viewLifecycleOwner) {
@@ -45,13 +47,12 @@ class ProgramManagerFragment : Fragment() {
             viewModel.syncSubscriptionsWithPrograms()
         }
 
-        val userId = session.getUserId()
-        val query = ProgramFilterQuery(privacy = "public")
-
         if (userId != null) {
-            viewModel.getProgramsFiltered(query, false, userId)
+            viewModel.getProgramsFiltered(ProgramFilterQuery(privacy = "public"), false, userId)
             viewModel.getAllAssociations("favorite", userId.toInt())
             viewModel.getAllAssociations("subscription", userId.toInt())
+        } else {
+            viewModel.getProgramsFiltered(ProgramFilterQuery(privacy = "public"), false, -1)
         }
 
         setUpListeners()
@@ -73,6 +74,8 @@ class ProgramManagerFragment : Fragment() {
 
             if (userId != null) {
                 viewModel.getProgramsFiltered(getFilterQuery(), true, userId.toInt())
+            } else {
+                viewModel.getProgramsFiltered(getFilterQuery(), true, -1)
             }
         }
 
@@ -81,6 +84,8 @@ class ProgramManagerFragment : Fragment() {
                 viewModel.more(getFilterQuery(), userId.toInt())
                 viewModel.getAllAssociations("favorite", userId.toInt())
                 viewModel.getAllAssociations("subscription", userId.toInt())
+            } else {
+                viewModel.getProgramsFiltered(getFilterQuery(), false, -1)
             }
         }
     }
