@@ -1,7 +1,5 @@
 package com.school.behealth.shared.dtos.user.getById
 
-import java.util.Date
-
 data class UserGetByIdResponse (
     val id: Int,
     val username: String,

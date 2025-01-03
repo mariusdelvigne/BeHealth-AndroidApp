@@ -8,10 +8,15 @@ import com.school.behealth.search.programs.detailsProgramsFragment.dtos.plansDet
 import com.school.behealth.search.programs.detailsProgramsFragment.dtos.programsDetails.ProgramsGetByIdResponse
 import com.school.behealth.search.programs.detailsProgramsFragment.repositories.IPlanDetailsRepository
 import com.school.behealth.search.programs.detailsProgramsFragment.repositories.IProgramsDetailsRepository
+import com.school.behealth.shared.dtos.user.getById.UserGetByIdResponse
+import com.school.behealth.shared.repositories.IUserRepository
 import com.school.behealth.utils.RetrofitFactory
 import kotlinx.coroutines.launch
 
 class DetailsProgramsManagerViewModel : ViewModel() {
+    val mutableLiveUserInformationData: MutableLiveData<UserGetByIdResponse> = MutableLiveData()
+    private val userRepository = RetrofitFactory.instance.create(IUserRepository::class.java)
+
     val mutableLiveProgramsDetailsData: MutableLiveData<ProgramsGetByIdResponse> = MutableLiveData()
     private val programDetailsRepository =
         RetrofitFactory.instance.create(IProgramsDetailsRepository::class.java)
@@ -38,6 +43,17 @@ class DetailsProgramsManagerViewModel : ViewModel() {
                 mutableLivePlansDetailsData.postValue(response)
             } catch (e: Exception) {
                 Log.e("ProgramsResponse", "Error get programs", e)
+            }
+        }
+    }
+
+    fun getUserInformation(userId: Int){
+        viewModelScope.launch {
+            try {
+                val response = userRepository.getUserById(userId)
+                mutableLiveUserInformationData.postValue(response)
+            } catch (e: Exception) {
+                Log.e("UserInformation", "Error get userInfo", e)
             }
         }
     }
