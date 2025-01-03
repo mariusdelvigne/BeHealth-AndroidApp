@@ -100,6 +100,29 @@
                 android:text="Sport" />
         </TableRow>
 
+        <TextView
+            android:id="@+id/tv_insertFragment_titleGoToSite"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You can view your recap on the site :"
+            android:textColor="@color/ocean_blue"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_insertFragment_linkGoToSite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click on Me !"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"/>
+
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,6 +52,14 @@ class InsertFragment : Fragment() {
         binding.btnFragmentInsertSport.setOnClickListener {
             replaceFragment(UserSportInsertFragment())
         }
+
+        binding.tvInsertFragmentLinkGoToSite.setOnClickListener {
+            goToWebsite()
+        }
+    }
+
+    private fun goToWebsite() {
+        TODO("Not yet implemented")
     }
 
     private fun replaceFragment(fragment: Fragment) {
