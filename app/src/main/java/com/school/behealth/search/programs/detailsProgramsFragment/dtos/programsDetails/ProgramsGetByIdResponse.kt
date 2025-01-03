@@ -1,4 +1,4 @@
-package com.school.behealth.search.programs.dtos
+package com.school.behealth.search.programs.detailsProgramsFragment.dtos.programsDetails
 
 data class ProgramsGetByIdResponse(
     val id: Int,
