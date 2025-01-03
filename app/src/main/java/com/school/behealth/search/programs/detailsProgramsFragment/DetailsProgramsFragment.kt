@@ -2,6 +2,7 @@ package com.school.behealth.search.programs.detailsProgramsFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,9 +42,17 @@ class DetailsProgramsFragment(programId: Int) : Fragment() {
                 binding.tvFragmentDetailsProgramsCreatorName.text = responseUser.username
             }
 
+            Log.i("planId", response.sleepPlanId.toString())
+            Log.i("planId", response.sportPlanId.toString())
+            Log.i("planId", response.foodPlanId.toString())
+
             val sportPlanId = response.sportPlanId
             val foodPlanId = response.foodPlanId
             val sleepPlanId = response.sleepPlanId
+
+            Log.i("planId", sportPlanId.toString())
+            Log.i("planId", foodPlanId.toString())
+            Log.i("planId", sleepPlanId.toString())
 
             response.sleepPlanId?.let {
                 if (sleepPlanId == null)
@@ -66,8 +75,8 @@ class DetailsProgramsFragment(programId: Int) : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun observePlanSportDetails(sportPlanId: Int) {
         binding.linearLayoutFragmentDetailsProgramsPlanSport.visibility = View.VISIBLE
-        viewModel.getPlanById(sportPlanId)
-        viewModel.mutableLivePlansDetailsData.observe(viewLifecycleOwner) { responsePlan ->
+        viewModel.getSportPlanById(sportPlanId)
+        viewModel.mutableLiveSportPlanDetailsData.observe(viewLifecycleOwner) { responsePlan ->
             binding.tvFragmentDetailsProgramsPlanSportTitle.text = responsePlan.name
             binding.tvFragmentDetailsProgramsPlanSportDescription.text = responsePlan.description
             binding.tvFragmentDetailsProgramsPlanSportDurations.text = "${responsePlan.durationInDays} days"
@@ -77,8 +86,8 @@ class DetailsProgramsFragment(programId: Int) : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun observePlanFoodDetails(foodPlanId: Int) {
         binding.linearLayoutFragmentDetailsProgramsPlanFood.visibility = View.VISIBLE
-        viewModel.getPlanById(foodPlanId)
-        viewModel.mutableLivePlansDetailsData.observe(viewLifecycleOwner) { responsePlan ->
+        viewModel.getFoodPlanById(foodPlanId)
+        viewModel.mutableLiveFoodPlanDetailsData.observe(viewLifecycleOwner) { responsePlan ->
             binding.tvFragmentDetailsProgramsPlanFoodTitle.text = responsePlan.name
             binding.tvFragmentDetailsProgramsPlanFoodDescription.text = responsePlan.description
             binding.tvFragmentDetailsProgramsPlanFoodDurations.text = "${responsePlan.durationInDays} days"
@@ -88,8 +97,8 @@ class DetailsProgramsFragment(programId: Int) : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun observePlanSleepDetails(sleepPlanId: Int) {
         binding.linearLayoutFragmentDetailsProgramsPlanSleep.visibility = View.VISIBLE
-        viewModel.getPlanById(sleepPlanId)
-        viewModel.mutableLivePlansDetailsData.observe(viewLifecycleOwner) { responsePlan ->
+        viewModel.getSleepPlanById(sleepPlanId)
+        viewModel.mutableLiveSleepPlanDetailsData.observe(viewLifecycleOwner) { responsePlan ->
             binding.tvFragmentDetailsProgramsPlanSleepTitle.text = responsePlan.name
             binding.tvFragmentDetailsProgramsPlanSleepDescription.text = responsePlan.description
             binding.tvFragmentDetailsProgramsPlanSleepDurations.text = "${responsePlan.durationInDays} days"

@@ -21,7 +21,9 @@ class DetailsProgramsManagerViewModel : ViewModel() {
     private val programDetailsRepository =
         RetrofitFactory.instance.create(IProgramsDetailsRepository::class.java)
 
-    val mutableLivePlansDetailsData: MutableLiveData<PlansGetByIdResponse> = MutableLiveData()
+    val mutableLiveSportPlanDetailsData: MutableLiveData<PlansGetByIdResponse> = MutableLiveData()
+    val mutableLiveFoodPlanDetailsData: MutableLiveData<PlansGetByIdResponse> = MutableLiveData()
+    val mutableLiveSleepPlanDetailsData: MutableLiveData<PlansGetByIdResponse> = MutableLiveData()
     private val planDetailsRepository =
         RetrofitFactory.instance.create(IPlanDetailsRepository::class.java)
 
@@ -36,16 +38,39 @@ class DetailsProgramsManagerViewModel : ViewModel() {
         }
     }
 
-    fun getPlanById(planId: Int) {
+    fun getSportPlanById(planId: Int) {
         viewModelScope.launch {
             try {
                 val response = planDetailsRepository.getPlanById(planId)
-                mutableLivePlansDetailsData.postValue(response)
+                mutableLiveSportPlanDetailsData.postValue(response)
             } catch (e: Exception) {
-                Log.e("ProgramsResponse", "Error get programs", e)
+                Log.e("PlanResponse", "Error fetching sport plan", e)
             }
         }
     }
+
+    fun getFoodPlanById(planId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = planDetailsRepository.getPlanById(planId)
+                mutableLiveFoodPlanDetailsData.postValue(response)
+            } catch (e: Exception) {
+                Log.e("PlanResponse", "Error fetching food plan", e)
+            }
+        }
+    }
+
+    fun getSleepPlanById(planId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = planDetailsRepository.getPlanById(planId)
+                mutableLiveSleepPlanDetailsData.postValue(response)
+            } catch (e: Exception) {
+                Log.e("PlanResponse", "Error fetching sleep plan", e)
+            }
+        }
+    }
+
 
     fun getUserInformation(userId: Int){
         viewModelScope.launch {
