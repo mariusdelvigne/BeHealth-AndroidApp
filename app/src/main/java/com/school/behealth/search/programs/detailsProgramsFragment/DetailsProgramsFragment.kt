@@ -1,6 +1,7 @@
 package com.school.behealth.search.programs.detailsProgramsFragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,13 +17,22 @@ class DetailsProgramsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailsProgramsBinding.inflate(layoutInflater, container, false)
+        Log.i("DetailsProgramsFragment", "onCreateView called")
+        binding = FragmentDetailsProgramsBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[DetailsProgramsManagerViewModel::class.java]
+
+        setOnclickListeners()
 
         return binding.root
     }
 
-    companion object {
-        fun newInstance() = DetailsProgramsFragment()
+    private fun setOnclickListeners() {
+        Log.i("btn", "btnClicked")
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.i("DetailsProgramsFragment", "onViewCreated called")
+        Log.i("DetailsProgramsFragment", "TextView text: ${binding.textView.text}")
     }
 }

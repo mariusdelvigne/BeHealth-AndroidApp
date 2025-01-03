@@ -48,6 +48,23 @@ class ProgramRecyclerViewAdapter(
             holder.ivSubscription.visibility = View.GONE
         }
 
+        holder.itemView.setOnClickListener {
+
+            val fragmentManager = fragment.requireActivity().supportFragmentManager
+            val transaction = fragmentManager.beginTransaction()
+
+            val currentFragment = fragmentManager.findFragmentByTag("programSearchFragment")
+            if (currentFragment != null) {
+                transaction.remove(currentFragment)
+                Log.i("FragmentTransaction", "Removed programSearchFragment")
+            }
+
+            transaction.replace(R.id.frameLayout_mainActivity, DetailsProgramsFragment(), "detailsFragment")
+            transaction.addToBackStack(null)
+            transaction.commit()
+            Log.i("FragmentTransaction", "DetailsProgramsFragment added")
+        }
+
         holder.itemView.setOnLongClickListener {
             if (isUserLoggedIn) {
                 showProgramActionDialog(holder.itemView.context, program)
@@ -63,7 +80,6 @@ class ProgramRecyclerViewAdapter(
     private fun showProgramActionDialog(context: Context, program: Program) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_program_relations, null)
 
-        val btnShowProgramDetails: Button = dialogView.findViewById(R.id.btn_showProgramsDetails)
         val btnToggleFavorite: Button = dialogView.findViewById(R.id.btn_toggleFavorite)
         val btnToggleSubscription: Button = dialogView.findViewById(R.id.btn_toggleSubscription)
         val btnCancel: Button = dialogView.findViewById(R.id.btn_cancel)
@@ -74,20 +90,6 @@ class ProgramRecyclerViewAdapter(
         val dialog = AlertDialog.Builder(context)
             .setView(dialogView)
             .create()
-
-        btnShowProgramDetails.setOnClickListener {
-            dialog.dismiss()
-
-            val fragmentManager = fragment.requireActivity().supportFragmentManager
-            val currentFragment = fragmentManager.findFragmentByTag("programSearchFragment")
-            if (currentFragment != null) {
-                val transaction = fragmentManager.beginTransaction()
-                transaction.remove(currentFragment)
-                transaction.commit()
-            } else {
-                Log.i("currentFrag", "Fragment not found!")
-            }
-        }
 
         btnToggleFavorite.setOnClickListener {
             val userId = fragment.session.getUserId() ?: return@setOnClickListener
