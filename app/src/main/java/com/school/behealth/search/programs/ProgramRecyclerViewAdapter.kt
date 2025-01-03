@@ -2,7 +2,6 @@ package com.school.behealth.search.programs
 
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentProgramItemBinding
 import com.school.behealth.search.programs.detailsProgramsFragment.DetailsProgramsFragment
@@ -56,13 +54,11 @@ class ProgramRecyclerViewAdapter(
             val currentFragment = fragmentManager.findFragmentByTag("programSearchFragment")
             if (currentFragment != null) {
                 transaction.remove(currentFragment)
-                Log.i("FragmentTransaction", "Removed programSearchFragment")
             }
 
-            transaction.replace(R.id.frameLayout_mainActivity, DetailsProgramsFragment(), "detailsFragment")
+            transaction.replace(R.id.frameLayout_mainActivity, DetailsProgramsFragment(program.id), "detailsFragment")
             transaction.addToBackStack(null)
             transaction.commit()
-            Log.i("FragmentTransaction", "DetailsProgramsFragment added")
         }
 
         holder.itemView.setOnLongClickListener {

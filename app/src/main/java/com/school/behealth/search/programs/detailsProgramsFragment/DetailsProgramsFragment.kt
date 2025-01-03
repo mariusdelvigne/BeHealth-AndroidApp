@@ -9,30 +9,34 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.school.behealth.databinding.FragmentDetailsProgramsBinding
 
-class DetailsProgramsFragment : Fragment() {
+class DetailsProgramsFragment(programId: Int) : Fragment() {
     private lateinit var binding: FragmentDetailsProgramsBinding
     private lateinit var viewModel: DetailsProgramsManagerViewModel
+    private var programId: Int = programId
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i("DetailsProgramsFragment", "onCreateView called")
         binding = FragmentDetailsProgramsBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[DetailsProgramsManagerViewModel::class.java]
 
-        setOnclickListeners()
+        viewModel.getProgramById(programId)
+
+        observeMutableLiveData()
 
         return binding.root
     }
 
-    private fun setOnclickListeners() {
-        Log.i("btn", "btnClicked")
+    private fun observeMutableLiveData() {
+        viewModel.mutableLiveProgramsDetailsData.observe(viewLifecycleOwner) {response ->
+            Log.i("responseProgramId", response.title)
+            Log.i("responseProgramId", response.description)
+            Log.i("responseProgramId", response.privacy)
+            Log.i("responseProgramId", response.sleepPlanId.toString())
+            Log.i("responseProgramId", response.sportPlanId.toString())
+            Log.i("responseProgramId", response.foodPlanId.toString())
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.i("DetailsProgramsFragment", "onViewCreated called")
-        Log.i("DetailsProgramsFragment", "TextView text: ${binding.textView.text}")
-    }
 }
