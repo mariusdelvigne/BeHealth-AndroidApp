@@ -2,13 +2,13 @@ package com.school.behealth.search.programs
 
 import android.app.AlertDialog
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentProgramItemBinding
 import com.school.behealth.search.programs.detailsProgramsFragment.DetailsProgramsFragment
@@ -30,6 +30,7 @@ class ProgramRecyclerViewAdapter(
         val program = programs[position]
 
         holder.tvTitle.text = program.title
+        holder.tvUserName.text = program.creatorName
 
         // Display/Undisplay fav/sub icons if connected or not
         if (isUserLoggedIn) {
@@ -110,6 +111,7 @@ class ProgramRecyclerViewAdapter(
 
     inner class ViewHolder(binding: FragmentProgramItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val tvTitle: TextView = binding.tvFragmentProgramItemTitle
+        val tvUserName: TextView = binding.tvFragmentProgramItemCreatorName
         val ivFavorite: ImageView = binding.ivFragmentProgramItemFavorite
         val ivSubscription: ImageView = binding.ivFragmentProgramItemSubscription
     }
