@@ -28,17 +28,10 @@ class DetailsProgramsFragment(programId: Int) : Fragment() {
         return binding.root
     }
 
-    private fun observePlanDetails(planId: Int) {
-        viewModel.getPlanById(planId)
-        viewModel.mutableLivePlansDetailsData.observe(viewLifecycleOwner) { responsePlan ->
-            Log.i("responsePlanId", responsePlan.name)
-            Log.i("responsePlanId", responsePlan.description)
-            Log.i("responsePlanId", responsePlan.creationDatetime)
-            Log.i("responsePlanId", responsePlan.category)
-        }
-    }
-
     private fun observeMutableLiveData() {
+        binding.linearLayoutFragmentDetailsProgramsPlanFood.visibility = View.GONE
+        binding.linearLayoutFragmentDetailsProgramsPlanSleep.visibility = View.GONE
+        binding.linearLayoutFragmentDetailsProgramsPlanSport.visibility = View.GONE
         viewModel.mutableLiveProgramsDetailsData.observe(viewLifecycleOwner) { response ->
             Log.i("responseProgramId", response.title)
             Log.i("responseProgramId", response.description)
@@ -47,6 +40,11 @@ class DetailsProgramsFragment(programId: Int) : Fragment() {
             Log.i("responseProgramId", response.sportPlanId.toString())
             Log.i("responseProgramId", response.foodPlanId.toString())
 
+            binding.tvFragmentDetailsProgramsTitlePrograms.text = response.title
+            binding.tvFragmentDetailsProgramsDescription.text = response.description
+            //TODO recup le creator
+            binding.tvFragmentDetailsProgramsCreatorName.text = response.creatorId.toString()
+
             val sportPlanId = response.sportPlanId
             val foodPlanId = response.foodPlanId
             val sleepPlanId = response.sleepPlanId
@@ -54,18 +52,51 @@ class DetailsProgramsFragment(programId: Int) : Fragment() {
             response.sleepPlanId?.let {
                 if (sleepPlanId == null)
                     return@observe
-                observePlanDetails(sleepPlanId)
+                observePlanSleepDetails(sleepPlanId)
             }
             response.foodPlanId?.let {
                 if (foodPlanId == null)
                     return@observe
-                observePlanDetails(foodPlanId)
+                observePlanFoodDetails(foodPlanId)
             }
             response.sportPlanId?.let {
                 if (sportPlanId == null)
                     return@observe
-                observePlanDetails(sportPlanId)
+                observePlanSportDetails(sportPlanId)
             }
+        }
+    }
+
+    private fun observePlanSportDetails(sportPlanId: Int) {
+        binding.linearLayoutFragmentDetailsProgramsPlanSport.visibility = View.VISIBLE
+        viewModel.getPlanById(sportPlanId)
+        viewModel.mutableLivePlansDetailsData.observe(viewLifecycleOwner) { responsePlan ->
+            Log.i("responsePlanId", responsePlan.name)
+            Log.i("responsePlanId", responsePlan.description)
+            Log.i("responsePlanId", responsePlan.creationDatetime)
+            Log.i("responsePlanId", responsePlan.category)
+        }
+    }
+
+    private fun observePlanFoodDetails(foodPlanId: Int) {
+        binding.linearLayoutFragmentDetailsProgramsPlanFood.visibility = View.VISIBLE
+        viewModel.getPlanById(foodPlanId)
+        viewModel.mutableLivePlansDetailsData.observe(viewLifecycleOwner) { responsePlan ->
+            Log.i("responsePlanId", responsePlan.name)
+            Log.i("responsePlanId", responsePlan.description)
+            Log.i("responsePlanId", responsePlan.creationDatetime)
+            Log.i("responsePlanId", responsePlan.category)
+        }
+    }
+
+    private fun observePlanSleepDetails(sleepPlanId: Int) {
+        binding.linearLayoutFragmentDetailsProgramsPlanSleep.visibility = View.VISIBLE
+        viewModel.getPlanById(sleepPlanId)
+        viewModel.mutableLivePlansDetailsData.observe(viewLifecycleOwner) { responsePlan ->
+            Log.i("responsePlanId", responsePlan.name)
+            Log.i("responsePlanId", responsePlan.description)
+            Log.i("responsePlanId", responsePlan.creationDatetime)
+            Log.i("responsePlanId", responsePlan.category)
         }
     }
 
