@@ -1,10 +1,13 @@
 package com.school.behealth.insert
 
 import SleepInsertFragment
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.school.behealth.R
 import com.school.behealth.databinding.FragmentInsertBinding
@@ -59,7 +62,11 @@ class InsertFragment : Fragment() {
     }
 
     private fun goToWebsite() {
-        TODO("Not yet implemented")
+        val url = "http://10.0.2.2:5114/swagger/index.html"
+        Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+            startActivity(this)
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
