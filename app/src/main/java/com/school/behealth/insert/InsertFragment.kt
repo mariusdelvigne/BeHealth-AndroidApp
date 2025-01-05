@@ -62,7 +62,7 @@ class InsertFragment : Fragment() {
     }
 
     private fun goToWebsite() {
-        val url = "http://10.0.2.2:5114/swagger/index.html"
+        val url = "http://192.168.64.1:4200"
         Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(url)
             startActivity(this)
