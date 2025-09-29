@@ -1,4 +1,4 @@
-# BeHealth-Android/README.md
+# BeHealth-Android
 
 # 📄 BeHealth Android
 
